@@ -1127,7 +1127,7 @@ input:checked ~ .hide_nav_container {
   }
 
   form input{
-    width: 430px;
+    width: 95%;
     margin: 10px 10px;
     color: grey;
     height: 32px;
