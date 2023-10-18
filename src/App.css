@@ -119,7 +119,7 @@ nav{
     letter-spacing: .6px;
     color: #aed8ea;
     text-align: center;
-    margin-top: 12px;
+    margin: 20px 0px 30px;
     min-height: 34px;
     position: relative;
 }
@@ -261,7 +261,7 @@ form{
 }
 
 form input{
-  width: 500px;
+  width:600px;
   margin: 20px;
   color: grey;
   height: 32px;
@@ -379,9 +379,6 @@ span{
 }
 
 .grid-2{
-  /* display: grid;
-  grid-template-columns: repeat(2,1fr);
-  margin-top: 50px; */
   display: flex;
   width: 80%;
   margin: auto;
@@ -458,12 +455,6 @@ span{
   cursor: pointer;
   padding-bottom: 20px;
 }
-
-/* .posts-grid{
-  
-  width: 70%;
-  margin: auto;
-} */
 
 .ddd{
   display: grid;
@@ -763,7 +754,7 @@ textarea {
 
 .mature{
   color: #fff;
-  padding: 20px 0px;
+  padding: 18px 0px;
 }
 
 .add-tags {
@@ -807,6 +798,7 @@ textarea {
   letter-spacing: .3px;
   line-height: normal;
   opacity: .7;
+  padding: 0px;
 }
 
 .span-tag{
@@ -837,8 +829,8 @@ textarea {
   letter-spacing: .3px;
   line-height: normal;
   opacity: .7;
+  padding: 0px;
 }
-
 
 #form-file-upload {
   height: 16rem;
@@ -939,4 +931,267 @@ textarea {
 .comment-stat{
   color: #fff;
   padding: 20px 0px;
+}
+
+.hamburger_container input{
+  display: none;
+}
+
+input:checked ~ .hide_nav_container {
+  display: block;
+  color: black;
+  }
+
+ .hamburger_container label{
+  font-size: 30px;
+  cursor: pointer;
+  color: black;
+  /* position: fixed; */
+}
+
+.hamburger_container label{
+  display: block;
+  z-index: 20;
+  color: #fafafa;
+  padding: 5px;
+  margin: 10px 0px;
+  }
+
+.hide_nav_container{
+  display: none;
+  /* height: 80vh; */
+  position: fixed;
+  top: 40px;
+  width: 85%;
+  z-index: 10;
+  background-color: transparent;
+}
+
+.hide_nav_container nav{
+  margin-top: 2%;
+}
+
+.hide_nav_container nav ul{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  color: #fff;
+ 
+}
+
+.hide_nav_container ul li{
+  list-style: none;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.hamburger-link{
+  text-decoration: none;
+   color: #000;
+  letter-spacing: 5px;
+  font-size: 12px;
+  padding-left: 20px;
+}
+
+.hide_nav_container ul li a{
+  text-decoration: none;
+  color: #1bb76e;
+  letter-spacing: 5px;
+  font-size: 12px;
+  padding-left: 20px;
+}
+
+.hide_nav_container a:hover {
+  background-color: #ffffff80;
+}
+
+
+.hide_nav_container .hamburger_logo:hover {
+  background-color: none;
+}
+.mg{
+  margin: 0px 20px;
+}
+
+.hamburger-text{
+  display: flex;
+  justify-content: space-around;
+  gap: 70px;
+  letter-spacing: 1px;
+  padding: 10px;
+  font-size: 30px;
+  margin-left: 100px;
+}
+
+.hamburger-links{
+   line-height: 40px;
+   letter-spacing: 1px;
+   font-size: 15px;
+   padding-left: 50px;
+   background-color: whitesmoke;
+}
+
+.hamburger-links p{
+  line-height: 40px;
+  letter-spacing: 3px;
+  font-size: 15px;
+}
+
+.hamburger-links a{
+  text-decoration: none;
+  color: black;
+  line-height: 40px;
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+
+.hamb-flex{
+  display: flex;
+}
+
+.hamb-flex input{
+  background: hsla(0,0%,100%,.25);
+    border: 1px solid transparent;
+    padding: 8px 35px 8px 10px;
+    border-radius: 3px;
+    width: 390px;
+    outline: 0 none;
+    opacity: .8;
+    min-height: 36px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    color: #fff;
+    text-shadow: inherit;
+    margin: 25px 0px;
+}
+
+@media (max-width: 720px) {
+  .navBar{
+    display: none;
+  }
+
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .ddd{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+    width: 95%;
+    margin: auto;
+  }
+
+  .post-bk img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .hamburger_container {
+    display: block;
+  }
+  
+  .hide_nav_container {
+    display: none;
+  }
+  
+  .hamburger-text {
+    display: none;
+  }
+  
+  .hamburger-links {
+    display: block;
+  }
+
+  .imgur-icons{
+    width: 90%;
+    margin: auto;
+  }
+
+  .sc-bk{
+      margin: 3px;
+  }
+
+  form{
+    width: 90%;
+    margin: auto;
+  }
+
+  form input{
+    width: 430px;
+    margin: 10px 10px;
+    color: grey;
+    height: 32px;
+    background-color: #191919;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+  }
+
+  .welcome-note{
+    margin: 20px 0px;
+  }
+
+  .comment-grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap:20px;
+    width: 70%;
+    margin: auto;
+  }
+
+  .comment-img{
+    width: 200px;
+  }
+
+  .comment-title{
+    padding: 20px 0px 10px;
+    font-size: 15px;
+  }
+
+  .comment-section{
+    width: 80%;
+    margin: auto;
+  }
+
+  .comment-section input{
+    width: 80%;
+    margin: auto;
+  }
+
+  .grid-2{
+    display:  block;
+    width: 80%;
+    margin: auto;
+    gap: 50px;
+  }
+
+  .container1{
+    width: 100%;
+  }
+
+  .container1 input{
+    width: 100%;
+  }
+
+  .mature{
+    padding: 13px 0px;
+  }
+ 
+}
+
+@media (min-width: 721px) {
+  .hamb-flex{
+    display: none;
+  }
+
 }

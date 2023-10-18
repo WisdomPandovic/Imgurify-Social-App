@@ -25,6 +25,16 @@ function Newpost() {
 
   const {userID,setUserID, isLoggedIn, setIsLoggedIn} = useContext(ImgurContext)
 
+  const handleNewPostClick = () => {
+    if (isLoggedIn) {
+      navigate("/newpost");
+    } else {
+      alert("You need to sign in to create a post.");
+      toast.success("You need to sign in to create a post.");
+      navigate("/signin");
+    }
+  };
+
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
@@ -124,6 +134,50 @@ useEffect(() => {
 
         </div>
 
+        <div className='hamb-flex'>
+                    <div class="hamburger_container mg">
+                        <label for="menu_check">&#9776;</label> 
+                        <input type="checkbox" id="menu_check" />
+                        <div class="hide_nav_container"><br/>
+                            <nav>
+                            {isLoggedIn ? (
+          <div className=''>
+            <div className='welcome-note'><p className='newpost'>Welcome,</p>
+            {` ${JSON.parse(localStorage.getItem('Imgur_USER')).data.username}!. `}
+           
+            <p className='newpost'>You are logged in.</p> </div>
+            <ul>
+                                    
+                                    <div><button onClick={handleNewPostClick}><li><Link to="/newpost" className='newpost'>New post</Link></li></button></div>
+                                    <li><Link to="/">Home</Link></li>
+                                    <button onClick={handleLogout}>Logout</button>
+ 
+                                 </ul>
+          </div>
+        ) : (
+          <div className=''>
+         
+     
+                                <ul>
+                                    
+                                   <div><button onClick={handleNewPostClick}><li><Link to="/newpost" className='newpost'>New post</Link></li></button></div>
+                                   <li><Link to="/signup" className='hamburger-link'>Sign Up</Link></li>
+                                   <li><Link to="/signin" className='hamburger-link' onClick={handleLogin}>Sign In</Link></li>
+                                   <li><Link to="/shopcomputer">Deals</Link></li>
+                                   {/* <button onClick={handleLogout}>Logout</button> */}
+
+                                </ul>
+                                </div>
+                        )}
+
+                            </nav>   
+                
+                        </div>  
+                   
+                    </div>
+                    <div><input type='text' placeholder="Images, #tags, @users oh my!" /></div>
+      </div>
+
         <form className="grid-2" onSubmit={(e)=>{e.preventDefault();}} >
             <div className="container1" value={userID}>
 
@@ -138,8 +192,10 @@ useEffect(() => {
             <div className="container2">
               <div className="poost"><p>Post</p></div>
               <div className="postOptions">
+                <div className="flex">
                 <button className="Button Button-community" onClick={check}>To Community</button>
                 <button className="Button Button-grabLink">Grab Link</button>
+                </div>
                 <p className="postStatus"> Your post is currently Hidden</p>
 
                 <div className="checkbox-tag flex">
@@ -158,13 +214,16 @@ useEffect(() => {
               <div className="add-tags">IMG TOOLS</div>
                 
                
-                <div className='span-tag'><span><FaCross/></span>Add more images</div>
+                <div className='span-tag'>
+                  <span><FaCross/></span>
+                  <p>Add more images</p>
+                </div>
                 <div className='span-tag'><span><ImEmbed/> </span>Embed post</div>
                 <div className='span-tag'><span><BiDownload/> </span>Down post</div>
                 <div className='span-tags'><span><AiOutlineDelete/> </span>Delete post</div>
                 
                     
-              </div>
+            </div>
         </form>
         <ToastContainer />
       </section>

@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Sidecounter from './Sidecounter';
 import {AiOutlineGif} from 'react-icons/ai';
 import {FaRegImage} from 'react-icons/fa';
@@ -12,7 +12,6 @@ import {formatDistanceToNow} from 'date-fns';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-   
 
 function CommentPost(){
 
@@ -29,6 +28,8 @@ function CommentPost(){
 
     const {isLoggedIn, setIsLoggedIn} = useContext(ImgurContext)
     console.log(isLoggedIn)
+
+    const navigate = useNavigate();
 
     useEffect(() => {
       if(localStorage){
@@ -71,6 +72,16 @@ function CommentPost(){
       setIsLoggedIn(false);
     } catch (error) {
       console.error('Error while handling logout:', error);
+    }
+  };
+
+  const handleNewPostClick = () => {
+    if (isLoggedIn) {
+      navigate("/newpost");
+    } else {
+      alert("You need to sign in to create a post.");
+      toast.success("You need to sign in to create a post.");
+      navigate("/signin");
     }
   };
 
@@ -244,6 +255,50 @@ useEffect(() => {
                 </div>
 
             </div>
+
+            <div className='hamb-flex'>
+                    <div class="hamburger_container mg">
+                        <label for="menu_check">&#9776;</label> 
+                        <input type="checkbox" id="menu_check" />
+                        <div class="hide_nav_container"><br/>
+                            <nav>
+                            {isLoggedIn ? (
+          <div className=''>
+            <div className='welcome-note'><p className='newpost'>Welcome,</p>
+            {` ${JSON.parse(localStorage.getItem('Imgur_USER')).data.username}!. `}
+           
+            <p className='newpost'>You are logged in.</p> </div>
+            <ul>
+                                    
+                                    <div><button onClick={handleNewPostClick}><li><Link to="/newpost" className='newpost'>New post</Link></li></button></div>
+                                    <li><Link to="/">Home</Link></li>
+                                    <button onClick={handleLogout}>Logout</button>
+ 
+                                 </ul>
+          </div>
+        ) : (
+          <div className=''>
+         
+     
+                                <ul>
+                                    
+                                   <div><button onClick={handleNewPostClick}><li><Link to="/newpost" className='newpost'>New post</Link></li></button></div>
+                                   <li><Link to="/signup" className='hamburger-link'>Sign Up</Link></li>
+                                   <li><Link to="/signin" className='hamburger-link' onClick={handleLogin}>Sign In</Link></li>
+                                   <li><Link to="/shopcomputer">Deals</Link></li>
+                                   {/* <button onClick={handleLogout}>Logout</button> */}
+
+                                </ul>
+                                </div>
+                        )}
+
+                            </nav>   
+                
+                        </div>  
+                   
+                    </div>
+                    <div><input type='text' placeholder="Images, #tags, @users oh my!" /></div>
+      </div>
 
             <div className='comment-grid'>
                 <div >

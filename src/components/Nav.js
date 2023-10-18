@@ -148,6 +148,51 @@ function Nav() {
         )}
       </div>
 
+      <div className='hamb-flex'>
+                    <div class="hamburger_container mg">
+                        <label for="menu_check">&#9776;</label> 
+                        <input type="checkbox" id="menu_check" />
+                        <div class="hide_nav_container"><br/>
+                            <nav>
+                            {isLoggedIn ? (
+          <div className=''>
+            <div className='welcome-note'><p className='newpost'>Welcome,</p>
+            {` ${JSON.parse(localStorage.getItem('Imgur_USER')).data.username}!. `}
+           
+            <p className='newpost'>You are logged in.</p> </div>
+            <ul>
+                                    
+                                    <div><button onClick={handleNewPostClick}><li><Link to="/newpost" className='newpost'>New post</Link></li></button></div>
+                                    <li><Link to="/">Home</Link></li>
+                                    <button onClick={handleLogout}>Logout</button>
+ 
+                                 </ul>
+          </div>
+        ) : (
+          <div className=''>
+         
+     
+                                <ul>
+                                    
+                                   <div><button onClick={handleNewPostClick}><li><Link to="/newpost" className='newpost'>New post</Link></li></button></div>
+                                   <li><Link to="/signup" className='hamburger-link'>Sign Up</Link></li>
+                                   <li><Link to="/signin" className='hamburger-link' onClick={handleLogin}>Sign In</Link></li>
+                                   <li><Link to="/shopcomputer">Deals</Link></li>
+                                   {/* <button onClick={handleLogout}>Logout</button> */}
+
+                                </ul>
+                                </div>
+                        )}
+
+                            </nav>   
+                
+                        </div>  
+                   
+                    </div>
+                    <div><input type='text' placeholder="Images, #tags, @users oh my!" /></div>
+      </div>
+      
+
       <div className='welcome-text'>Life is what happens when you're busy making memes.</div>
       <div className='tags'>
         <div className='trending-tags'>
