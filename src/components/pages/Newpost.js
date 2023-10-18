@@ -163,7 +163,7 @@ useEffect(() => {
                                    <div><button onClick={handleNewPostClick}><li><Link to="/newpost" className='newpost'>New post</Link></li></button></div>
                                    <li><Link to="/signup" className='hamburger-link'>Sign Up</Link></li>
                                    <li><Link to="/signin" className='hamburger-link' onClick={handleLogin}>Sign In</Link></li>
-                                   <li><Link to="/shopcomputer">Deals</Link></li>
+                                   <li><Link to="/">Home</Link></li>
                                    {/* <button onClick={handleLogout}>Logout</button> */}
 
                                 </ul>
