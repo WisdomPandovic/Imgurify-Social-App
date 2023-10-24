@@ -109,20 +109,8 @@ function Nav() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3007/tag') 
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       // console.log('Fetched tags:', data);
-  //       setTags(data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching tags:', error);
-  //     });
-  // }, []);
-
   useEffect(() => {
-    fetch('https://wisdompandovic.github.io/imgur-api/tag') 
+    fetch('http://localhost:3007/tag') 
       .then(response => response.json())
       .then(data => {
         // console.log('Fetched tags:', data);
@@ -132,8 +120,6 @@ function Nav() {
         console.error('Error fetching tags:', error);
       });
   }, []);
-
-
 
   return (
     <nav>
