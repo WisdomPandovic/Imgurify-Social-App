@@ -109,8 +109,20 @@ function Nav() {
     });
   }, []);
 
+  // useEffect(() => {
+  //   fetch('http://localhost:3007/tag') 
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // console.log('Fetched tags:', data);
+  //       setTags(data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching tags:', error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch('http://localhost:3007/tag') 
+    fetch('https://imgur-api-67a4.onrender.com/tag') 
       .then(response => response.json())
       .then(data => {
         // console.log('Fetched tags:', data);
@@ -119,7 +131,8 @@ function Nav() {
       .catch(error => {
         console.error('Error fetching tags:', error);
       });
-  }, []);
+}, []);
+
 
   return (
     <nav>
