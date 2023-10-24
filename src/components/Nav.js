@@ -122,7 +122,7 @@ function Nav() {
   // }, []);
 
   useEffect(() => {
-    fetch('https://imgur-api-67a4.onrender.com/tag') 
+    fetch('https://wisdompandovic.github.io/imgur-api/tag') 
       .then(response => response.json())
       .then(data => {
         // console.log('Fetched tags:', data);
@@ -131,7 +131,8 @@ function Nav() {
       .catch(error => {
         console.error('Error fetching tags:', error);
       });
-}, []);
+  }, []);
+
 
 
   return (
