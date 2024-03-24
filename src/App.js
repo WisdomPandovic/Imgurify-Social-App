@@ -3,10 +3,12 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./components/pages/Home";
 import SignUp from './components/pages/SignUp';
 import Signin from './components/pages/Signin';
-import Newpost from './components/pages/Newpost';
-import CommentPost from './components/pages/CommentPost';
-import PostCategory from './components/pages/PostCategory';
+import NewPosts from './components/pages/NewPosts';
+import PostDetails from './components/pages/PostDetails';
+import TagPost from './components/pages/TagPost';
 import ImgurProvider from "./components/Context/ImgurContext";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   
   return (
@@ -14,12 +16,11 @@ function App() {
         <BrowserRouter>
            <Routes>
               <Route path='/' element={<Home/>}/>
-              <Route path='/newpost' element={<Newpost/>}/>
+              <Route path='/newposts' element={<NewPosts/>}/>
               <Route path='/signup' element={<SignUp/>}/>
               <Route path='/signin' element={<Signin/>}/>
-              <Route path='/commentPost' element={<CommentPost/>}/>
-              <Route path='/commentPost/:_id' element={<CommentPost/>}/>
-              <Route path='/postcategory/:tagId' element={<PostCategory/>}/>
+              <Route path='/postDetails/:_id' element={<PostDetails/>}/>
+              <Route path='/tagPost/:_id' element={<TagPost/>}/>
            </Routes>
         </BrowserRouter>
     </ImgurProvider>

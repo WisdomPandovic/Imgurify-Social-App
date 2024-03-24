@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    min-height: 100px;
+  }
+
+  .middle {
+    flex-grow: 1;
+  }
+
+  .custom-container-fluid{
+    width: 70%;
+    margin: auto;
+  }
+
+.post-item img{
+    height: 300px;
+}
+
+.tag{
+    padding: 20px;
+    cursor: pointer;
+}
+
+.social-nav{
+  background-image: url("./images/homebg-1.png");
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.explore-tags {
+  font-size: 1rem;
+}
+
+#postTag option {
+  color: black;
+}
+
+#imagePreview img {
+  max-width: 100%;
+  height: auto;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.fa-arrow-up{
+  cursor: pointer;
+}
+
+.sidecounter{
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 60px;
+text-align: center;
+color: black;
+}
+
+.share{
+  border: none;
+  border-radius: 5px;
+  width: 60px;
+text-align: center;
+color: black;
+}
+
+.bg-successes {
+  background-color: #8E929C!important;
+}
+
+.text-grays{
+  color: #8E929C !important;
+}
+
+.text-bluewhale{
+  color: #AED8EA;
+  font-size: 1.5rem !important;
+}
+
+.post-bk {
+  background: #474a51;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navBar-btn {
+  background: #6432f9 !important;
+  box-shadow: 0 3px 4px rgba(0,0,0,.12);
+  padding: 0 10px 0 9px;
+  overflow: hidden;
+  margin: auto 0;
+  line-height: 35px;
+}
+
+.navBar-signup {
+  background: #1bb76e;
+  box-shadow: 0 3px 4px rgba(0,0,0,.12);
+  padding: 0 10px 0 9px;
+  overflow: hidden;
+  margin: auto 0;
+  line-height: 35px;
+}
+
+#comment-text{
+  background-color: black;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  #tagContainer{
+      display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar-brand h1 {
+    text-transform: uppercase;
+    font-family: cursive;
+    font-size: 1.5rem;
+}
+}

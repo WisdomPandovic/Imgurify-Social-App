@@ -1,13 +1,11 @@
-import Nav from "../Nav";
-import Posts from "./Posts";
+import SocialNav from "../SocialNav"
+import Post from "./Post";
 
 function Home(){
     return(
         <div className="homepage">
-            <Nav />
-            
-            <Posts/>
-            
+            <SocialNav/>
+            <Post/> 
         </div>
     );
 }
