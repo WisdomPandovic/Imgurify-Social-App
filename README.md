@@ -1,4 +1,4 @@
-# Imgur Project
+# Imgurify Project
 
 This project is a React-based web application that emulates some of the core features of Imgur, a popular online image hosting and sharing platform. It allows users to browse, upload, like, and comment on images.
 
