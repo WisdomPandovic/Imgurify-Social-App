@@ -26,6 +26,7 @@ This project is a React-based web application that emulates some of the core fea
 ### Prerequisites
 
 - Node.js and npm should be installed on your system.
+- **Note**: To use the app, you will also need to clone the `imgurify-api` repository.
 
 Configuration
 You may need to adjust the API endpoints in the code to match your server's URL.
