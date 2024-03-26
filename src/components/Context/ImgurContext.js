@@ -15,9 +15,11 @@ function ImgurProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [viewCount, setViewCount] = useState(0);
 
+  const [ReplyLikes, setReplyLikes] = useState([]);
+
   // console.log("Likes in context:", likes);
   // console.log("Context value:", { userID, likes, dislike, isLoggedIn });
-  // console.log("userID in ImgurContext:", userID);
+  console.log("userID in ImgurContext:", userID);
   // console.log("isLoggedIn in ImgurContext:", isLoggedIn);
   const { _id } = useParams();
 
@@ -35,8 +37,6 @@ function ImgurProvider(props) {
     }
   }, []);
   
-  
- 
   async function LikePost(_id) {
     // Check if the user is logged in
     if (!isLoggedIn) {
@@ -71,6 +71,18 @@ function ImgurProvider(props) {
         toast.error("Post already liked by this user.");
         return;
       }
+
+      // Log response for debugging
+      console.log("Like response:", response.data); 
+
+      // Check if response.data contains the correct ID
+      console.log("Response ID:", response.data[0]); 
+
+      // Check the structure of _id in your likes state
+      console.log("Current _id:", _id);
+
+      // Compare both values
+      console.log("Do response ID and current _id match?", response.data[0] === _id);
   
       // Update likes if successful
       setLikes((prevLikes) => {
@@ -87,9 +99,80 @@ function ImgurProvider(props) {
       console.error("Error liking the post:", error.message);
       toast.error("An error occurred while liking the post.");
     }
-  };
-  
+};
 
+ 
+  // async function LikePost(_id) {
+  //   // Check if the user is logged in
+  //   if (!isLoggedIn) {
+  //     toast.error("You need to sign in to like the post.");
+  //     return;
+  //   }
+  
+  //   // Check if the user ID is set correctly
+  //   if (!userID ) {
+  //     console.error("User ID is not set correctly.");
+  //     toast.error("User ID is not set correctly.");
+  //     return;
+  //   }
+  
+  //   const loggedin = {
+  //     user: userID,
+  //   };
+  
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:3007/likes/${_id}`,
+  //       loggedin
+  //     );
+  
+  //     // Check for network errors
+  //     if (response.status !== 200) {
+  //       throw new Error("Failed to like the post. Please try again later.");
+  //     }
+  
+  //     // Check for specific error cases
+  //     if (response.data.msg === "Post already liked by this user") {
+  //       toast.error("Post already liked by this user.");
+  //       return;
+  //     }
+
+  //      // Update likes if successful
+  //      console.log("Like response:", response.data); // Log response for debugging
+  
+  //     // Update likes if successful
+  //     setLikes((prevLikes) => {
+  //       console.log("Previous likes state:", prevLikes);
+  //       console.log("Like response:", response.data);
+      
+  //       // Find the index of the like object with the matching ID
+  //       const index = prevLikes.findIndex((like) => like._id === response.data[0]);
+      
+  //       // If the index is found, update the likes count at that index
+  //       if (index !== -1) {
+  //         const updatedLikes = [...prevLikes];
+  //         updatedLikes[index] = {
+  //           ...updatedLikes[index],
+  //           likes: updatedLikes[index].likes + 1,
+  //         };
+  //         console.log("Updated likes state:", updatedLikes);
+  //         return updatedLikes;
+  //       }
+      
+  //       // If the index is not found, return the previous likes state
+  //       return prevLikes;
+  //     });
+      
+      
+  //     console.log("Updated likes state:", likes); 
+  
+  //     toast.success("Post has been liked.");
+  //   } catch (error) {
+  //     console.error("Error liking the post:", error.message);
+  //     toast.error("An error occurred while liking the post.");
+  //   }
+  // };
+  
 async function UnLikePost(_id) {
   if (!userID) {
     console.error("userID is not set correctly.");
@@ -105,7 +188,7 @@ async function UnLikePost(_id) {
       "http://localhost:3007/unlike/" + _id,
       loggedin
     );
-    console.log(response);
+    console.log("Unlike response:", response.data); // Log response for debugging
 
     if (response.data.msg === "User has not liked this post") {
       toast.error(response.data.msg);
@@ -118,12 +201,18 @@ async function UnLikePost(_id) {
           return like;
         });
       });
+      console.log("Updated likes state:", likes); 
       toast.success("You have unliked this post");
     }
   } catch (error) {
     console.log(error);
   }
 }
+
+useEffect(() => {
+  console.log("Updated likes state:", likes);
+}, [likes]);
+
 
 
   // useEffect(() => {
@@ -160,10 +249,74 @@ async function UnLikePost(_id) {
 };
 
 
+async function LikeComment(postId, commentId) {
+  // Check if the user is logged in
+  if (!isLoggedIn) {
+    toast.error("You need to sign in to like the post.");
+    return;
+  }
+
+  // Check if the user ID is set correctly
+  if (!userID ) {
+    console.error("User ID is not set correctly.");
+    toast.error("User ID is not set correctly.");
+    return;
+  }
+
+  const loggedin = {
+    user: userID,
+  };
+
+  try {
+    const response = await axios.put(
+      `http://localhost:3007/replylikes/${postId}/${commentId}`,
+      loggedin
+    );
+
+    // Check for network errors
+    if (response.status !== 200) {
+      throw new Error("Failed to like the comment. Please try again later.");
+    }
+
+    // Check for specific error cases
+    if (response.data.msg === "Comment already liked by this user") {
+      toast.error("Comment already liked by this user.");
+      return;
+    }
+
+    // Log response for debugging
+    console.log("Like response:", response.data); 
+
+    // Check if response.data contains the correct ID
+    console.log("Response ID:", response.data[0]); 
+
+    // Check the structure of _id in your likes state
+    console.log("Current _id:", _id);
+
+    // Compare both values
+    console.log("Do response ID and current _id match?", response.data[0] === _id);
+
+    // Update likes if successful
+    setReplyLikes((prevLikes) => {
+      return prevLikes.map((like) => {
+        if (like._id === _id) {
+          return { ...like, likes: like.likes + 1 };
+        }
+        return like;
+      });
+    });
+
+    toast.success("Comment has been liked.");
+  } catch (error) {
+    console.error("Error liking the comment:", error.message);
+    toast.error("An error occurred while liking the comment.");
+  }
+};
+
   return (
     <ImgurContext.Provider value={{LikePost,  UnLikePost, userID, setUserID, likes, setLikes, dislike, setDislike, isLoggedIn, setIsLoggedIn,
       viewCount,
-      handleView, }}>
+      handleView, ReplyLikes, setReplyLikes, LikeComment}}>
       {props.children}
     </ImgurContext.Provider>
   );

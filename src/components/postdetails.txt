@@ -1,0 +1,142 @@
+import React, { useState, useEffect, useContext } from 'react';
+import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap';
+import SideCounters from "./SideCounters";
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import axios from "axios";
+import { ImgurContext } from '../Context/ImgurContext';
+import { AiOutlineGif } from 'react-icons/ai';
+import { FaRegImage, FaComment, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { formatDistanceToNow } from 'date-fns';
+import { TbArrowBigUp, TbArrowBigDown } from 'react-icons/tb';
+
+function PostDetails() {
+    const { _id } = useParams();
+    const navigate = useNavigate();
+    const [post, setPost] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const { userID, isLoggedIn, LikePost, UnLikePost, } = useContext(ImgurContext);
+    const [posts, setPosts] = useState([]);
+    const [data, setData] = useState({});
+
+    const [replyText, setReplyText] = useState('');
+    const [showReplyPopup, setShowReplyPopup] = useState(false);
+    const [commentId, setCommentId] = useState(null);
+    const [expandedReplies, setExpandedReplies] = useState({});
+
+    const handleOpenReplyPopup = (commentId) => {
+        setCommentId(commentId);
+        setShowReplyPopup(true);
+    };
+
+    const handleCloseReplyPopup = () => {
+        setShowReplyPopup(false);
+    };
+
+    const handleToggleReplies = (commentId) => {
+        setExpandedReplies((prevState) => ({
+            ...prevState,
+            [commentId]: !prevState[commentId]
+        }));
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch('http://localhost:3007/post');
+            const data = await response.json();
+            const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setPosts(sortedData);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        }
+    };
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const response = await fetch(`http://localhost:3007/post/${_id}`);
+                const postData = await response.json();
+                setPost(postData);
+            } catch (error) {
+                console.error('Error fetching post:', error);
+            }
+        };
+
+        fetchPost();
+    }, [_id]);
+
+    const handleNextPost = () => {
+        if (currentIndex < posts.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+            navigate(`/postDetails/${posts[currentIndex + 1]._id}`);
+        }
+    };
+
+    const handlePreviousPost = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+            navigate(`/postDetails/${posts[currentIndex - 1]._id}`);
+        }
+    };
+
+    const renderReplies = (commentId) => {
+        return post.comments.find(comment => comment._id === commentId)?.replies.map((reply) => (
+            <div key={reply._id}>
+                {/* Render your reply UI here */}
+                <p>{reply.text}</p>
+            </div>
+        ));
+    };
+
+    const renderComments = () => {
+        return post.comments.map((comment) => (
+            <div className='comment-data' key={comment._id}>
+                {/* Your existing comment rendering */}
+                <div className='d-flex justify-content-between comment-stat mr-2'>
+                    <div className='comment-posts comment-stat mr-2'>
+                        <div className='comment-posts'>
+                            <div className='mr-2'><TbArrowBigUp className='mr-2' /></div>
+                            <div className='mr-2'>()</div>
+                            <div className='mr-2'><TbArrowBigDown className='mr-2' /></div>
+                        </div>
+                        <div>|</div>
+                        {/* Toggle visibility of replies */}
+                        <div onClick={() => handleToggleReplies(comment._id)}>
+                            {comment.replies.length} replies
+                        </div>
+                    </div>
+                    <div className='bg-success p-1' onClick={() => handleOpenReplyPopup(comment._id)}>
+                        <FaComment /> Reply
+                    </div>
+                </div>
+                {/* Collapsible area for replies */}
+                {expandedReplies[comment._id] && (
+                    <div>
+                        {renderReplies(comment._id)}
+                    </div>
+                )}
+                <hr />
+            </div>
+        ));
+    };
+
+    // Return loading or error message if post is null
+    if (!post) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        <Container fluid className="mt-3 comment-background">
+            {/* Your existing JSX structure */}
+            {renderComments()}
+        </Container>
+    );
+}
+
+export default PostDetails;

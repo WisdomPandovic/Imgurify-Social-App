@@ -113,6 +113,8 @@ color: black;
   color: #fff;
 }
 
+
+
 @media (max-width: 768px) {
   #tagContainer{
       display: none;

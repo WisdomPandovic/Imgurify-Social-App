@@ -28,9 +28,66 @@ function PostDetails() {
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0); 
-    const { userID, isLoggedIn, LikePost,  UnLikePost,  } = useContext(ImgurContext);
+    const { userID, isLoggedIn, LikePost,  UnLikePost, ReplyLikes, setReplyLikes, LikeComment } = useContext(ImgurContext);
     const [posts, setPosts] = useState([]);
     const [data, setData] = useState({});
+
+    const [replyText, setReplyText] = useState('');
+    const [showReplyPopup, setShowReplyPopup] = useState(false);
+    // const [selectedCommentId, setSelectedCommentId] = useState(null);
+    const [commentId, setCommentId] = useState(null);
+
+    const handleOpenReplyPopup = (commentId) => {
+        setCommentId(commentId); 
+        // setSelectedCommentId(commentId);
+        setShowReplyPopup(true);
+    };
+
+    const handleCloseReplyPopup = () => {
+        setShowReplyPopup(false);
+    };
+
+     // POST COMENT
+     const [reply, setReply] = useState({
+        text: "",
+        reply_user: {
+          id: userID,
+        },
+    });
+
+    const handleReplySubmit = (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+    
+        if (!isLoggedIn) {
+            toast.error("You need to sign in to post a reply.");
+            return;
+        }
+    
+        const newReply = {
+            text: reply.text,
+            reply_user: {
+                id: userID
+            },
+            comment_id: commentId
+        };
+    
+        axios.post(`http://localhost:3007/reply/${_id}`, newReply)
+            .then((response) => {
+                console.log("Reply submitted:", response.data);
+                // Reset the reply state and close the pop-up
+                setReply({
+                    text: "",
+                    reply_user: { id: userID }
+                });
+                setShowReplyPopup(false);
+                // Optionally, you can fetch the updated post data here
+            })
+            .catch((error) => {
+                console.error("Error submitting reply:", error);
+                toast.error("An error occurred while posting the reply.");
+            });
+    };
+    
 
     useEffect(() => {
         fetchPosts();
@@ -153,11 +210,11 @@ function PostDetails() {
                     <Button onClick={handleNextPost}>Next <FaArrowRight /></Button>
                 </div>
             <Row>
-                <Col md={3} className="fixed-column">
+                <Col lg={3} md={12} className="fixed-column">
                 {data && <SideCounters data={postt} />}
                 </Col>
 
-                <Col md={6} className="center-column pt-5 pb-5">
+                <Col lg={6} md={12} className="center-column pt-5 pb-5">
                     <Container>
                         <h2 id="post-title" className='text-white'>{post?.title}</h2> 
                         
@@ -189,7 +246,7 @@ function PostDetails() {
                     <ToastContainer />
                 </Col>
 
-                <Col md={3} className='text-white pt-5'>
+                <Col lg={3} md={12} className='text-white pt-5'>
                    <div >
                     <div className='d-flex justify-content-between'>
                         <div><p className='text-uppercase'>{data?.comments?.length} Comments</p></div>
@@ -212,19 +269,42 @@ function PostDetails() {
                           <p>{comment.text}</p>
                       </div>
 
-                      <div className='comment-posts comment-stat mr-2'>
+                      <div className='d-flex justify-content-between comment-stat mr-2'>
+                          <div className='comment-posts comment-stat mr-2'>
                           <div className='comment-posts'>
-                               <div className='mr-2'><TbArrowBigUp className='mr-2'/></div>
-                               <div className='mr-2'>()</div>
+                               <div className='mr-2'><TbArrowBigUp className='mr-2 like-button' onClick={() => LikeComment(post._id, comment._id)} /></div>
+                               <div className='mr-2'>({comment.likes.length})</div>
                                <div className='mr-2'><TbArrowBigDown className='mr-2'/></div>
                           </div>
 
                           <div>|</div>
 
-                          <div>() replies</div>
+                          <div>{comment.replies.length} replies</div>
+                          </div>
+                          <div className='bg-success p-1' onClick={() => handleOpenReplyPopup(comment._id)}><FaComment /> Reply</div>
+            
                       </div> <hr/>
                       </div>
                  ))}
+
+                {showReplyPopup && (
+                <div className="reply-popup">
+                    <Form id="add-comment-form" onSubmit={handleReplySubmit} value={userID}>
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="comment-text" className=' text-white mt-4'>Add your comment:</Form.Label>
+                            <Form.Control as="textarea" id="comment-text" rows={3} value={reply.text} onChange={(e) => setReply({ ...reply, text: e.target.value })} />
+                        </Form.Group>
+                        <div className='comment-posts'>
+                            <FaRegImage className='text-white pt-2'style={{ fontSize: '30px' }}/>
+                            <AiOutlineGif className='text-white pt-2 mr-2' style={{ fontSize: '30px' }} />
+                            <div className='text-white pt-2'>500</div>
+                            <Button type="submit" >Reply</Button>
+                            <Button onClick={handleCloseReplyPopup}>Cancel</Button>
+                        </div>
+                    </Form>
+                  
+                </div>
+                )}
                 </Col>
             </Row>
             

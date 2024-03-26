@@ -34,6 +34,11 @@ function PostsSection() {
       // console.log("_id parameter received:", _id);
   };
 
+    // Function to truncate text to 15 characters
+    const truncateText = (text) => {
+      return text.length > 100 ? text.slice(0, 88) + '...' : text;
+  };
+
     return (
         <div className="row mt-3">
           {posts.map((data) => (
@@ -45,9 +50,9 @@ function PostsSection() {
                 <img src={data.image} className="img-fluid d-block w-100" alt="Post Image"  />
               </Link>
               <div className="bg-successes p-3">
-                <div className="product-description pb-3 text-white">{data.description}</div>
+              <div className="product-description pb-3 text-white">{truncateText(data.description)}</div>
               </div>
-                <div className="icons d-flex justify-content-between text-white pt-5 bg-successes p-3">
+                <div className="icons d-flex justify-content-between text-white bg-successes p-3">
                   <div className="like-buttons">
                     <ImArrowUp className="like-button" onClick={() => LikePost(data._id)} />
                     <span className="like-count p-2">{data.likes.length}</span>
