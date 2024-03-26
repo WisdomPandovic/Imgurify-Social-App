@@ -28,7 +28,7 @@ function PostDetails() {
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0); 
-    const { userID, isLoggedIn, LikePost,  UnLikePost, ReplyLikes, setReplyLikes, LikeComment } = useContext(ImgurContext);
+    const { userID, isLoggedIn, LikePost,  UnLikePost,  LikeComment, UnLikeComment } = useContext(ImgurContext);
     const [posts, setPosts] = useState([]);
     const [data, setData] = useState({});
 
@@ -273,8 +273,8 @@ function PostDetails() {
                           <div className='comment-posts comment-stat mr-2'>
                           <div className='comment-posts'>
                                <div className='mr-2'><TbArrowBigUp className='mr-2 like-button' onClick={() => LikeComment(post._id, comment._id)} /></div>
-                               <div className='mr-2'>({comment.likes.length})</div>
-                               <div className='mr-2'><TbArrowBigDown className='mr-2'/></div>
+                               <div className='mr-2'>{comment.likes.length}</div>
+                               <div className='mr-2'><TbArrowBigDown className='mr-2 unlike-button' onClick={() => UnLikeComment(post._id, comment._id)}/></div>
                           </div>
 
                           <div>|</div>
@@ -299,7 +299,7 @@ function PostDetails() {
                             <AiOutlineGif className='text-white pt-2 mr-2' style={{ fontSize: '30px' }} />
                             <div className='text-white pt-2'>500</div>
                             <Button type="submit" >Reply</Button>
-                            <Button onClick={handleCloseReplyPopup}>Cancel</Button>
+                            <Button onClick={handleCloseReplyPopup} className='bg-danger'>Cancel</Button>
                         </div>
                     </Form>
                   

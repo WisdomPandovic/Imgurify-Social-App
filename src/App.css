@@ -139,7 +139,7 @@ margin: auto 0;
 line-height: 35px;
 }
 
-.like-button{
+.like-button, .unlike-button{
   cursor: pointer;
 }
 
@@ -289,7 +289,11 @@ padding: 10px 0;
   background-color: red;
 }
 
-
+.nav-icons{
+  cursor: pointer;
+  margin-top: 10px;
+  padding-right: 10px;
+}
 
 @media (max-width: 768px) {
 #tagContainer{

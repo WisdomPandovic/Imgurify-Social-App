@@ -5,6 +5,7 @@ import { ImgurContext } from './Context/ImgurContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { FaEnvelope, FaBell, FaSignOutAlt } from 'react-icons/fa';
 
 const SocialNav = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(ImgurContext);
@@ -51,13 +52,17 @@ const SocialNav = () => {
             <Nav className="mx-auto">
              
                 <div className='welcome-note'>
-                  <p className='newpost text-white pt-2'>Welcome, <span className='text-info'>{getUsername()}</span>! You are logged in.</p>
+                  <p className='newpost text-white pt-2'>Welcome, <span className='text-info'>{getUsername()}</span> !</p>
+                  
                   <Nav.Link onClick={handleNewPostClick} className="text-white">New Post</Nav.Link>
                 </div>
             </Nav>
             <div className="d-flex my-2 my-lg-0">
-              <Button as={Link} to="/adfree" variant="outline-light" className="navBar-btn mr-2 border-none">Go Ad-Free</Button>
-              <Button onClick={handleLogout} variant="outline-light" className="navBar-btn-logout mr-2 border-none">Logout</Button>
+              {/* <Button as={Link} to="/adfree" variant="outline-light" className="navBar-btn mr-2 border-none">Go Ad-Free</Button> */}
+              <FaEnvelope className='nav-icons text-white' style={{ fontSize: '30px' }}/> 
+              <FaBell className='nav-icons text-white' style={{ fontSize: '30px' }}/> 
+              {/* <Button onClick={handleLogout} variant="outline-light" className="navBar-btn-logout mr-2 border-none">Logout</Button> */}
+              <FaSignOutAlt onClick={handleLogout} className='nav-icons text-danger' style={{ fontSize: '30px' }}/>
             </div>
           </Navbar.Collapse>
              ) : (

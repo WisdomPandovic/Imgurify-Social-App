@@ -313,10 +313,46 @@ async function LikeComment(postId, commentId) {
   }
 };
 
+async function UnLikeComment(postId, commentId) {
+  if (!userID) {
+    console.error("userID is not set correctly.");
+    return;
+  }
+
+  const loggedin = {
+    user: userID,
+  };
+
+  try {
+    const response = await axios.put(
+      `http://localhost:3007/replyunlikes/${postId}/${commentId}`,
+      loggedin
+    );
+    console.log("Unlike response:", response.data); // Log response for debugging
+
+    if (response.data.msg === "User has not liked this comment") {
+      toast.error(response.data.msg);
+    } else if (response.status === 200) {
+      setReplyLikes((prevLikes) => {
+        return prevLikes.map((like) => {
+          if (like._id === _id) {
+            return { ...like, likes: like.likes - 1 };
+          }
+          return like;
+        });
+      });
+      console.log("Updated likes state:", likes); 
+      toast.success("You have unliked this comment");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
   return (
     <ImgurContext.Provider value={{LikePost,  UnLikePost, userID, setUserID, likes, setLikes, dislike, setDislike, isLoggedIn, setIsLoggedIn,
       viewCount,
-      handleView, ReplyLikes, setReplyLikes, LikeComment}}>
+      handleView, ReplyLikes, setReplyLikes, LikeComment, UnLikeComment}}>
       {props.children}
     </ImgurContext.Provider>
   );
