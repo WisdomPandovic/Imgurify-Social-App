@@ -22,7 +22,7 @@ function ImgurProvider(props) {
   console.log("userID in ImgurContext:", userID);
   // console.log("isLoggedIn in ImgurContext:", isLoggedIn);
   const { _id } = useParams();
-
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const rawData = localStorage.getItem("Imgur_USER");
@@ -349,10 +349,34 @@ async function UnLikeComment(postId, commentId) {
   }
 }
 
+ // Show the back-to-top button when scrolling down
+ useEffect(() => {
+  const toggleVisibility = () => {
+    if (window.pageYOffset > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  window.addEventListener('scroll', toggleVisibility);
+
+  return () => {
+    window.removeEventListener('scroll', toggleVisibility);
+  };
+}, []);
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
+
   return (
     <ImgurContext.Provider value={{LikePost,  UnLikePost, userID, setUserID, likes, setLikes, dislike, setDislike, isLoggedIn, setIsLoggedIn,
       viewCount,
-      handleView, ReplyLikes, setReplyLikes, LikeComment, UnLikeComment}}>
+      handleView, ReplyLikes, setReplyLikes, LikeComment, UnLikeComment, scrollToTop, isVisible}}>
       {props.children}
     </ImgurContext.Provider>
   );

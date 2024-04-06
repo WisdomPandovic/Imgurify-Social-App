@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {FaComment} from 'react-icons/fa';
-import {FaEye} from 'react-icons/fa';
+import {FaEye, FaArrowUp} from 'react-icons/fa';
 import {ImArrowDown} from 'react-icons/im';
 import {ImArrowUp} from 'react-icons/im';
 import { ImgurContext } from '../Context/ImgurContext';
@@ -10,7 +10,7 @@ import { ImgurContext } from '../Context/ImgurContext';
 function TagPost() {
     const { _id } = useParams();
     const [posts, setPosts] = useState([]);
-    const {LikePost, UnLikePost} = useContext(ImgurContext);
+    const {LikePost, UnLikePost, scrollToTop, isVisible} = useContext(ImgurContext);
 
     useEffect(() => {
         fetchPostsByTag(_id);
@@ -63,6 +63,9 @@ function TagPost() {
              </div>
         </div>
         </div>
+        <div className="back-to-top" onClick={scrollToTop} style={{ display: isVisible ? 'block' : 'none' }}>
+                <FaArrowUp className='FaArrowUp'/>
+            </div>
         </div>
     );
 }

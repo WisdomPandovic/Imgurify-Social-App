@@ -6,10 +6,12 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { FaEnvelope, FaBell, FaSignOutAlt } from 'react-icons/fa';
+import Notification from "../components/Notification";
 
 const SocialNav = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(ImgurContext);
   const navigate = useNavigate();
+  const [isBarOpen, setIsBarOpen] = useState(false);
 
   const handleNewPostClick = () => {
     if (isLoggedIn) {
@@ -58,12 +60,23 @@ const SocialNav = () => {
                 </div>
             </Nav>
             <div className="d-flex my-2 my-lg-0">
-              {/* <Button as={Link} to="/adfree" variant="outline-light" className="navBar-btn mr-2 border-none">Go Ad-Free</Button> */}
               <FaEnvelope className='nav-icons text-white' style={{ fontSize: '30px' }}/> 
-              <FaBell className='nav-icons text-white' style={{ fontSize: '30px' }}/> 
-              {/* <Button onClick={handleLogout} variant="outline-light" className="navBar-btn-logout mr-2 border-none">Logout</Button> */}
+              <FaBell onClick={() => setIsBarOpen(true)} className='nav-icons text-white' style={{ fontSize: '30px' }}/> 
               <FaSignOutAlt onClick={handleLogout} className='nav-icons text-danger' style={{ fontSize: '30px' }}/>
             </div>
+            {isBarOpen && (
+                            <div className='barPopup'>
+                                <div className='popup-flex'>
+                                    <div className='popup-welcome'>Notifications</div>
+                                    <div onClick={() => setIsBarOpen(false)} className='popup-welcomeX'>X</div>
+                                </div>
+
+                                <div className='notification'>
+                                    <Notification/>
+                                </div>
+                   
+                            </div>
+                        )}
           </Navbar.Collapse>
              ) : (
           <Navbar.Collapse id="navbarNav">

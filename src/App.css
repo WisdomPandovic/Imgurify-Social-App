@@ -285,7 +285,6 @@ padding: 10px 0;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
-  /* Change background color to red */
   background-color: red;
 }
 
@@ -293,6 +292,128 @@ padding: 10px 0;
   cursor: pointer;
   margin-top: 10px;
   padding-right: 10px;
+}
+
+.post-tag {
+  background-color: gray;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.back-to-top a {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.back-to-top a:hover {
+  background-color: #0056b3;
+}
+
+.FaArrowUp {
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+
+.barPopup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px; 
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: #fff; 
+  background-color: rgba( 92, 59, 119, 255 );
+}
+
+.popup{
+  background-color: rgba( 92, 59, 119, 255 );
+  color: #fff;
+}
+
+.popup-flex{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px 0px;
+}
+
+.popup-link{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 20px;
+  gap: 40px;
+}
+
+.popup-link button{
+  background-color: rgba( 92, 59, 119, 255 );
+  border: none;
+  color: #ccc;
+}
+
+.popup-welcomeX{
+  cursor: pointer;
+  color: red;
+}
+
+.popup-icon{
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.popup-icon2{
+  font-size: 15px;
+  color: red;
+}
+
+.popup-icon3{
+  font-size: 15px;
+  color: white;
+}
+
+.notification-bar{
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  padding: 20px 0px 10px 0px;
+}
+
+.notification-bar p{
+background-color: blueviolet;
+border-radius: 20px;
+padding: 5px;
+}
+
+.notification{
+  padding: 10px 0px;
+  /* font-size: 15px; */
+  font-family: "Ubuntu", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.49;
+    color: #c8a9ff;
+    text-align: left;
+      overflow-y: auto;
 }
 
 @media (max-width: 768px) {

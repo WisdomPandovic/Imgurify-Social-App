@@ -21,14 +21,14 @@ import {FaEye} from 'react-icons/fa';
 import {ImArrowDown} from 'react-icons/im';
 import {ImArrowUp} from 'react-icons/im';
 import SocialNav from "../SocialNav"
-import {FaArrowLeft, FaArrowRight} from 'react-icons/fa';
+import {FaArrowLeft, FaArrowRight, FaArrowUp} from 'react-icons/fa';
 
 function PostDetails() {
     const { _id } = useParams();
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0); 
-    const { userID, isLoggedIn, LikePost,  UnLikePost,  LikeComment, UnLikeComment } = useContext(ImgurContext);
+    const { userID, isLoggedIn, LikePost,  UnLikePost,  LikeComment, UnLikeComment, scrollToTop, isVisible} = useContext(ImgurContext);
     const [posts, setPosts] = useState([]);
     const [data, setData] = useState({});
 
@@ -36,6 +36,7 @@ function PostDetails() {
     const [showReplyPopup, setShowReplyPopup] = useState(false);
     // const [selectedCommentId, setSelectedCommentId] = useState(null);
     const [commentId, setCommentId] = useState(null);
+    
 
     const handleOpenReplyPopup = (commentId) => {
         setCommentId(commentId); 
@@ -227,6 +228,11 @@ function PostDetails() {
                                 <Image src={post?.image} alt="Post Image" fluid /> 
                             </Col>
                         </Row>
+
+                        <Row>
+                            <Col lg={5}>
+                            <p id="post-tag" className='text-white mt-4 post-tag text-center'>{post?.tag_name}</p></Col>
+                        </Row>
                         
                         <div className="comments-section">
                             <Form id="add-comment-form" onSubmit={submitForm} value={userID}>
@@ -279,7 +285,7 @@ function PostDetails() {
 
                           <div>|</div>
 
-                          <div>{comment.replies.length} replies</div>
+                          <div>{comment.replies.length} <span>replies</span></div>
                           </div>
                           <div className='bg-success p-1' onClick={() => handleOpenReplyPopup(comment._id)}><FaComment /> Reply</div>
             
@@ -338,6 +344,10 @@ function PostDetails() {
             </div>
             </div>
             </div>
+            <div className="back-to-top" onClick={scrollToTop} style={{ display: isVisible ? 'block' : 'none' }}>
+                <FaArrowUp className='FaArrowUp'/>
+            </div>
+
         </Container>
     );
 }
