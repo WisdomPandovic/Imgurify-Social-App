@@ -42,7 +42,7 @@ function SignUp(){
                 setErr(false);
                 toast.success("Sign up successful.");
                 navigate("/signin");
-            
+                toast.success("Sign up successful.");
             })
             .catch((error) => {
                 console.error(error);

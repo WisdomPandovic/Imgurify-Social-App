@@ -18,7 +18,7 @@ function TagPost() {
 
     const fetchPostsByTag = async (_id) => {
         try {
-            const response = await fetch(`http://localhost:3007/tag/${_id}`);
+            const response = await fetch(`https://imgurif-api.onrender.com/api/tag/${_id}`);
             const data = await response.json();
             setPosts(data.post);
             console.log(posts)

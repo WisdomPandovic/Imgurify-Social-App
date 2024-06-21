@@ -10,7 +10,7 @@ function CounterSection() {
 
     const fetchTags = async () => {
         try {
-            const response = await fetch('http://localhost:3007/tag');
+            const response = await fetch('https://imgurif-api.onrender.com/api/tag');
             const data = await response.json();
             setTags(data);
         } catch (error) {

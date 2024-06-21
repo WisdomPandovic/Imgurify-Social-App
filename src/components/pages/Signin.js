@@ -15,7 +15,7 @@ import { ToastContainer } from 'react-toastify';
 
 function Signin(){
 
-    const {setIsLoggedIn} = useContext(ImgurContext);
+    const {setIsLoggedIn, setUserID} = useContext(ImgurContext);
     const navigate = useNavigate();
     const location = useLocation();
     const [err, setErr] = useState(false);
@@ -36,6 +36,7 @@ function Signin(){
             if (resp.data.msg === 'Login successful') {
               localStorage.setItem('Imgur_USER', JSON.stringify(resp.data));
               setIsLoggedIn(true);
+              setUserID(resp.data.user._id); 
               const redirectTo = location.state?.from || '/';
               navigate(redirectTo);
             } else {
@@ -44,8 +45,13 @@ function Signin(){
           })
           .catch((error) => {
             console.error("Login error:", error);
-            toast.error("An error occurred during login");
+            if (error.response && error.response.status === 404 && error.response.data.msg === 'Invalid username or password') {
+              toast.error("No user with the provided username. Please sign up.");
+            } else {
+              toast.error("An unexpected error occurred during login.");
+            }
           });
+          
       }
     };
 
