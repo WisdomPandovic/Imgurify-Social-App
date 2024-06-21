@@ -23,7 +23,7 @@ import { ImArrowUp } from 'react-icons/im';
 import SocialNav from "../SocialNav"
 import { FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 
-function PostDetails() {
+function PostDetails({ uploadedImageUrl }) {
     const { _id } = useParams();
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
@@ -241,6 +241,7 @@ function PostDetails() {
                                 <Image src={post?.image} alt="Post Image" fluid />
                             </Col>
                         </Row>
+                        {uploadedImageUrl && <img src={uploadedImageUrl} alt="Uploaded" />}
 
                         <Row className="post-image">
                             <Col>

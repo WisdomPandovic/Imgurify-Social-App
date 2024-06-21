@@ -258,7 +258,7 @@ function ImgurProvider(props) {
     const userData = JSON.parse(localStorage.getItem("Imgur_USER"));
     const userId = userData?.data?.id;
 
-    fetch(`http://localhost:3007/post/${_id}/increment-view`, {
+    fetch(`https://imgurif-api.onrender.com/api/post/${_id}/increment-view`, {
       method: 'POST',
     })
       .then((resp) => resp.json())

@@ -15,13 +15,14 @@ const SocialNav = () => {
 
   const handleNewPostClick = () => {
     if (isLoggedIn) {
-      navigate("/newposts");
+        navigate("/newposts");
     } else {
-      alert("You need to sign in to create a post.");
-      toast.error("You need to sign in to create a post.");
-      navigate("/signin");
+        toast.error("You need to sign in to create a post.");
+        setTimeout(() => {
+            navigate("/signin");
+        }, 3000); // Adjust delay as needed, in milliseconds
     }
-  };
+};
 
   const handleLogout = () => {
     try {
@@ -40,7 +41,7 @@ const SocialNav = () => {
     const userData = JSON.parse(localStorage.getItem('Imgur_USER'));
     return userData ? userData.user.username : '';
   };
-  
+
   return (
     <div className="social-nav">
       <Navbar expand="lg">
@@ -49,49 +50,49 @@ const SocialNav = () => {
             <h1 className="text-secondary">Imgurify</h1>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarNav" />
-            {isLoggedIn ? (
-          <Navbar.Collapse id="navbarNav">
-            <Nav className="mx-auto">
-             
+          {isLoggedIn ? (
+            <Navbar.Collapse id="navbarNav">
+              <Nav className="mx-auto">
+
                 <div className='welcome-note'>
                   <p className='newpost text-white pt-2'>Welcome, <span className='text-info'>{getUsername()}</span> !</p>
-                  
+
                   <Nav.Link onClick={handleNewPostClick} className="text-white">New Post</Nav.Link>
                 </div>
-            </Nav>
-            <div className="d-flex my-2 my-lg-0">
-              <FaEnvelope className='nav-icons text-white' style={{ fontSize: '30px' }}/> 
-              <FaBell onClick={() => setIsBarOpen(true)} className='nav-icons text-white' style={{ fontSize: '30px' }}/> 
-              <FaSignOutAlt onClick={handleLogout} className='nav-icons text-danger' style={{ fontSize: '30px' }}/>
-            </div>
-            {isBarOpen && (
-                            <div className='barPopup'>
-                                <div className='popup-flex'>
-                                    <div className='popup-welcome'>Notifications</div>
-                                    <div onClick={() => setIsBarOpen(false)} className='popup-welcomeX'>X</div>
-                                </div>
+              </Nav>
+              <div className="d-flex my-2 my-lg-0">
+                <FaEnvelope className='nav-icons text-white' style={{ fontSize: '30px' }} />
+                <FaBell onClick={() => setIsBarOpen(true)} className='nav-icons text-white' style={{ fontSize: '30px' }} />
+                <FaSignOutAlt onClick={handleLogout} className='nav-icons text-danger' style={{ fontSize: '30px' }} />
+              </div>
+              {isBarOpen && (
+                <div className='barPopup'>
+                  <div className='popup-flex'>
+                    <div className='popup-welcome'>Notifications</div>
+                    <div onClick={() => setIsBarOpen(false)} className='popup-welcomeX'>X</div>
+                  </div>
 
-                                <div className='notification'>
-                                    <Notification/>
-                                </div>
-                   
-                            </div>
-                        )}
-          </Navbar.Collapse>
-             ) : (
-          <Navbar.Collapse id="navbarNav">
-            <Nav className="mx-auto">
+                  <div className='notification'>
+                    <Notification />
+                  </div>
+
+                </div>
+              )}
+            </Navbar.Collapse>
+          ) : (
+            <Navbar.Collapse id="navbarNav">
+              <Nav className="mx-auto">
                 <React.Fragment>
                   <Nav.Link onClick={handleNewPostClick} className="text-white">New Post</Nav.Link>
                   <Nav.Link as={Link} to="/signin" className="text-white">Sign In</Nav.Link>
                   <Nav.Link as={Link} to="/signup" className="text-white">Sign Up</Nav.Link>
                 </React.Fragment>
-            </Nav>
-            <div className="d-flex my-2 my-lg-0">
-              <Button as={Link} to="/adfree" variant="outline-light" className="navBar-btn border-none">Go Ad-Free</Button>
-            </div>
-          </Navbar.Collapse>
- )}
+              </Nav>
+              <div className="d-flex my-2 my-lg-0">
+                <Button as={Link} to="/adfree" variant="outline-light" className="navBar-btn border-none">Go Ad-Free</Button>
+              </div>
+            </Navbar.Collapse>
+          )}
         </Container>
       </Navbar>
 

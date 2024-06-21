@@ -8,7 +8,11 @@ const rootReducer = (state = initialState, action) => {
         case 'SET_POSTS':
             return {
                 ...state,
-                posts: action.payload,
+                posts: action.payload.map(post => ({
+                    ...post,
+                    likes: post.likes || [], // Ensure likes array exists
+                    comments: post.comments || [], // Ensure comments array exists
+                })),
             };
         case 'LIKE_POST':
         case 'UNLIKE_POST':

@@ -36,7 +36,7 @@ function SignUp(){
           setErr(true);
         }else {
             setErr(false);
-            axios.post("http://localhost:3007/users", userData)
+            axios.post("https://imgurif-api.onrender.com/api/users", userData)
             .then((resp) => {
                 console.log(resp.data)
                 setErr(false);
