@@ -1,0 +1,431 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "Proxima Nova Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.row {
+  min-height: 100px;
+}
+
+.middle {
+  flex-grow: 1;
+}
+
+.custom-container-fluid{
+  width: 70%;
+  margin: auto;
+}
+
+.post-item img{
+  height: 300px;
+}
+
+.tag{
+  padding: 20px;
+  cursor: pointer;
+}
+
+.social-nav{
+background-image: url("./images/homebg-1.png");
+width: 100%;
+height: 100%;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.explore-tags {
+font-size: 1rem;
+}
+
+#postTag option {
+color: black;
+}
+
+#imagePreview img {
+max-width: 100%;
+height: auto;
+}
+
+a{
+text-decoration: none;
+color: black;
+}
+
+.fa-arrow-up{
+cursor: pointer;
+}
+
+.sidecounter{
+border: 1px solid white;
+border-radius: 5px;
+width: 60px;
+text-align: center;
+color: black;
+}
+
+.td{
+  text-decoration: none;
+  color: #fff;
+}
+
+.share{
+border: none;
+border-radius: 5px;
+width: 60px;
+text-align: center;
+color: black;
+}
+
+.bg-successes {
+background-color: #8E929C!important;
+}
+
+.bg-height{
+  height: 100px;
+}
+
+.product-description {
+  height: 90px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.text-grays{
+color: #8E929C !important;
+}
+
+.text-bluewhale{
+color: #AED8EA;
+font-size: 1.5rem !important;
+}
+
+.post-bk {
+  background: #474a51;
+  color: #fff;
+  text-decoration: none;
+}
+
+.post-bk a{
+background: #474a51;
+color: #fff;
+text-decoration: none;
+}
+
+.navBar-btn {
+background: #6432f9 !important;
+box-shadow: 0 3px 4px rgba(0,0,0,.12);
+padding: 0 10px 0 9px;
+overflow: hidden;
+margin: auto 8px ;
+line-height: 35px;
+}
+
+.navBar-btn-logout {
+  background: red !important;
+  box-shadow: 0 3px 4px rgba(0,0,0,.12);
+  padding: 0 10px 0 9px;
+  overflow: hidden;
+  margin: auto 0;
+  line-height: 35px;
+  }
+
+.navBar-signup {
+background: #1bb76e;
+box-shadow: 0 3px 4px rgba(0,0,0,.12);
+padding: 0 10px 0 9px;
+overflow: hidden;
+margin: auto 0;
+line-height: 35px;
+}
+
+.like-button, .unlike-button{
+  cursor: pointer;
+}
+
+.comment-background {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(37, 38, 41, .24) 26.22%, #27292d 100%), linear-gradient(0deg, #171544, #171544);
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+.comment-posts{
+  display: flex;
+  gap: 10px;
+}
+
+.iconz{
+  cursor: pointer;
+}
+
+.welcome-note{
+  text-decoration: none;
+  color: blue;
+  display: flex;
+  gap: 10px;
+}
+
+.reg-bk{
+  padding: 20px;
+  background-color: #141518;
+}
+
+.grid-5{
+  background-color: #2C2F34;
+padding: 10px 0;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.sc-bk{
+  background-color: #141518;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.form-heading2{
+  font-size: 15px !important;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.form-btn2{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 20px;
+}
+
+.form-input{
+  background-color: #2C2F34;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.form-input input{
+  width: 100%;
+  background-color: #141518;
+  border: none;
+  color: #fff;
+}
+
+.form-control {
+  background-color: #141518 !important;
+  border:none !important;
+  transition: none !important;
+  color: #fff !important;
+}
+
+.newpost{
+  text-decoration: none;
+  color: #fff;
+}
+
+.border-none{
+  border: none !important;
+}
+
+.tag-section{
+  background-image: url("./images/homebg-1.png");
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+
+  .new-post{
+    background-color: #8E929C !important;
+  }
+
+  .post-buttons{
+    gap: 10px;
+  }
+
+  .create-post-form .form-control{
+    background-color: transparent !important;
+    color: #5B5D67 !important;
+  }
+
+  .create-post-form .description{
+    background-color: #44474E !important;
+   color: #fff !important;
+    border-radius: 0;
+  }
+
+  .description::placeholder {
+    color: #E0E0E0 !important; 
+}
+
+.title::placeholder {
+  color: #E0E0E0 !important; 
+  font-size: 20px;
+}
+
+.tags{
+  border: 1px solid black !important;
+  width: 200px !important;
+  color: #fff !important;
+}
+
+.imgur-social-icons{
+  cursor: pointer;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  background-image: var(--bs-navbar-toggler-icon-bg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  background-color: red;
+}
+
+.nav-icons{
+  cursor: pointer;
+  margin-top: 10px;
+  padding-right: 10px;
+}
+
+.post-tag {
+  background-color: gray;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.back-to-top a {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.back-to-top a:hover {
+  background-color: #0056b3;
+}
+
+.FaArrowUp {
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+
+.barPopup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px; 
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: #fff; 
+  background-color: rgba( 92, 59, 119, 255 );
+}
+
+.popup{
+  background-color: rgba( 92, 59, 119, 255 );
+  color: #fff;
+}
+
+.popup-flex{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px 0px;
+}
+
+.popup-link{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 20px;
+  gap: 40px;
+}
+
+.popup-link button{
+  background-color: rgba( 92, 59, 119, 255 );
+  border: none;
+  color: #ccc;
+}
+
+.popup-welcomeX{
+  cursor: pointer;
+  color: red;
+}
+
+.popup-icon{
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.popup-icon2{
+  font-size: 15px;
+  color: red;
+}
+
+.popup-icon3{
+  font-size: 15px;
+  color: white;
+}
+
+.notification-bar{
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  padding: 20px 0px 10px 0px;
+}
+
+.notification-bar p{
+background-color: blueviolet;
+border-radius: 20px;
+padding: 5px;
+}
+
+.notification{
+  padding: 10px 0px;
+  /* font-size: 15px; */
+  font-family: "Ubuntu", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.49;
+    color: #c8a9ff;
+    text-align: left;
+      overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+#tagContainer{
+    display: none;
+}
+}
+
+@media (max-width: 320px) {
+.navbar-brand h1 {
+  text-transform: uppercase;
+  font-family: cursive;
+  font-size: 1.5rem;
+}
+}
