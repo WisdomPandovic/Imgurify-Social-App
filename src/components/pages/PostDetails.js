@@ -25,6 +25,7 @@ import { FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 
 function PostDetails({ uploadedImageUrl }) {
     const { _id } = useParams();
+    console.log(_id)
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -224,11 +225,11 @@ function PostDetails({ uploadedImageUrl }) {
                 <Button onClick={handleNextPost}>Next <FaArrowRight /></Button>
             </div>
             <Row>
-                <Col lg={3} md={12} className="fixed-column">
+                <Col lg={3} md={12} sm={12} className="fixed-column order-lg-1 order-md-2 order-sm-2">
                     {data && <SideCounters data={postt} />}
                 </Col>
 
-                <Col lg={6} md={12} className="center-column pt-5 pb-5">
+                <Col lg={6} md={12} sm={12} className="center-column pt-5 pb-5 order-lg-2 order-md-1 order-sm-1">
                     <Container>
                         <h2 id="post-title" className='text-white'>{post?.title}</h2>
 
@@ -272,7 +273,7 @@ function PostDetails({ uploadedImageUrl }) {
                     <ToastContainer />
                 </Col>
 
-                <Col lg={3} md={12} className='text-white pt-5'>
+                <Col lg={3} md={12} sm={12} className='text-white pt-5 order-lg-3 order-md-3 order-sm-3'>
                     <div >
                         <div className='d-flex justify-content-between'>
                             <div><p className='text-uppercase'>{data?.comments?.length} Comments</p></div>

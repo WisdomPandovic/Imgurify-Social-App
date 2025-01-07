@@ -7,14 +7,14 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
-  apiKey: "AIzaSyC4LLZVGIiz74wb79hZ4UnwwYtzG0x54gA",
-  authDomain: "imgurify.firebaseapp.com",
-  projectId: "imgurify",
-  storageBucket: "imgurify.appspot.com",
-  messagingSenderId: "471603031488",
-  appId: "1:471603031488:web:33d08b1572969a24b96c25",
-  measurementId: "G-Z9YRS82P16"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
