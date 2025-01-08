@@ -341,7 +341,7 @@ function PostDetails({ uploadedImageUrl }) {
                     <div className="row mt-3">
                         {posts.map((data) => (
                             <div key={data._id} className={`post-item col-lg-4 col-md-6 mb-3 ${data._id}`}>
-                                <div className="bg-successes p-3">
+                                <div className="bg-successes bg-height p-3">
                                     <div className="product-title pb-3 text-white">{data.title}</div>
                                 </div>
                                 <Link to={``} className="post-link">
