@@ -34,7 +34,10 @@ function CounterSection() {
                                     className="badge badge-primary d-block mb-2 mr-2"
                                     style={{ backgroundColor: getRandomColor(), padding: '20px' }}
                                 >
-                                    {tag.name}
+                                    {tag.name}<br></br>
+                                    <span className="badge badge-light ml-2">
+                                    {tag.post.length} posts
+                                    </span>
                                 </span>
                             </Link>
                         ))}

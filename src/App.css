@@ -104,6 +104,10 @@ font-size: 1.5rem !important;
   background: #474a51;
   color: #fff;
   text-decoration: none;
+  height: 100%; /* Make sure it fills the full height of the parent */
+  min-height: 100vh; /* Ensures it takes at least the full height of the viewport */
+  display: flex;
+  flex-direction: column;
 }
 
 .post-bk a{
