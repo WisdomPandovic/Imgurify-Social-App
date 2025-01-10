@@ -545,7 +545,7 @@ function NewPosts() {
             </div>
           </div>
         </div>
-        <div className="container card-footer text-center bg-light mt-2">
+        <div className="container card-footer text-center bg-light mt-4">
           <small className="text-muted">Make sure to review your post before submitting.</small>
         </div>
       </div>

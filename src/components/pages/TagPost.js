@@ -5,6 +5,7 @@ import { FaComment } from 'react-icons/fa';
 import { FaEye, FaArrowUp } from 'react-icons/fa';
 import { ImArrowDown } from 'react-icons/im';
 import { ImArrowUp } from 'react-icons/im';
+import { BsArrowLeftShort } from 'react-icons/bs';
 import { ImgurContext } from '../Context/ImgurContext';
 
 function TagPost() {
@@ -30,6 +31,11 @@ function TagPost() {
   return (
     <div>
       <div className="tag-section" >
+      <div className="back pt-3 pb-3">
+        <Link to="/" className="td">
+          <BsArrowLeftShort /> back to Imgur
+        </Link>
+      </div>
         <h2>{posts.name}</h2>
         <p className='text-center text-white p-5'>{posts.length} POSTS</p>
       </div>

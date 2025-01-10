@@ -65,12 +65,12 @@ function SideCounters({ data }) {
 }, [dispatch]);
 
    // Log data._id to check if it matches any post in Redux state
-   console.log('Data ID:', data._id);
+   console.log('Data ID:', data?._id);
 
    // Find the specific post data from the state using the data._id
-   const post = posts.find(post => post._id === data._id) || {};
+   const post = posts.find(post => post._id === data?._id) || {};
 
-   console.log('Data ID:', data._id);
+   console.log('Data ID:', data?._id);
    console.log('Post:', post);
    console.log('Post in SideCounters:', post);
 
@@ -85,6 +85,10 @@ function SideCounters({ data }) {
   };
   
   console.log("Post in SideCounters:", post);
+
+  if (!post) {
+    return <div>Post not found or data is missing</div>; // Safely handle missing post data
+  }
 
   return (
     <Container fluid className="mt-3">
