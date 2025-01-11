@@ -22,7 +22,7 @@ function TagPost() {
       const response = await fetch(`https://imgurif-api.onrender.com/api/tag/${_id}`);
       const data = await response.json();
       setPosts(data.post);
-      console.log(posts)
+      console.log(data.post)
     } catch (error) {
       console.error('Error fetching posts by tag:', error);
     }
@@ -31,11 +31,11 @@ function TagPost() {
   return (
     <div>
       <div className="tag-section" >
-      <div className="back pt-3 pb-3">
-        <Link to="/" className="td">
-          <BsArrowLeftShort /> back to Imgur
-        </Link>
-      </div>
+        <div className="back pt-3 pb-3">
+          <Link to="/" className="td">
+            <BsArrowLeftShort /> back to Imgur
+          </Link>
+        </div>
         <h2>{posts.name}</h2>
         <p className='text-center text-white p-5'>{posts.length} POSTS</p>
       </div>
@@ -48,7 +48,7 @@ function TagPost() {
                 <div className="bg-successes bg-height p-3">
                   <div className="product-title pb-3 text-white">{post.title}</div>
                 </div>
-                <Link to={`postDetails/${post._id}`} className="post-link">
+                <Link to={`/postDetails/${post._id}`} className="post-link">
                   <img src={post.image} className="img-fluid d-block w-100" alt="Post Image" />
                 </Link>
                 <div className="bg-successes p-3">
@@ -61,8 +61,14 @@ function TagPost() {
                     <span className="like-count p-2">{post.likes.length}</span>
                     <ImArrowDown className="like-button" onClick={() => UnLikePost(post._id)} />
                   </div>
-                  <FaComment />
-                  <FaEye />
+                  <div className="comment-icon">
+                    <FaComment className="me-2" />
+                    {post.comments.length}
+                  </div>
+                  <div className="view-icon">
+                    <FaEye className="me-2" />
+                    {post.views}
+                  </div>
                 </div>
               </div>
             ))}
