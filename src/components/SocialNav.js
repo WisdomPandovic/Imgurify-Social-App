@@ -5,7 +5,8 @@ import { ImgurContext } from './Context/ImgurContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import { FaEnvelope, FaBell, FaSignOutAlt } from 'react-icons/fa';
+import { FaEnvelope, FaBell, FaSignOutAlt,  } from 'react-icons/fa';
+import { FaPlusCircle } from "react-icons/fa";
 import Notification from "../components/Notification";
 import data from './data';
 import Modal from 'react-bootstrap/Modal'; // Import Modal

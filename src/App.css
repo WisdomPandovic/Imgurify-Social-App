@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   font-family: "Proxima Nova Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -12,143 +12,211 @@
   flex-grow: 1;
 }
 
-.custom-container-fluid{
+.custom-container-fluid {
   width: 70%;
   margin: auto;
 }
 
-.post-item img{
+.post-item img {
   height: 300px;
 }
 
-.tag{
+.tag {
   padding: 20px;
   cursor: pointer;
 }
 
-.social-nav{
-background-image: url("./images/homebg-1.png");
-width: 100%;
-height: 100%;
-background-repeat: no-repeat;
-background-size: cover;
+.profile-user {
+  font-size: 44px;
+  font-family: "Proxima Nova ExtraBold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.Profile-stats {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 8px;
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.social-nav {
+  background-image: url("./images/homebg-1.png");
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .explore-tags {
-font-size: 1rem;
+  font-size: 1rem;
 }
 
 #postTag option {
-color: black;
+  color: black;
 }
 
 #imagePreview img {
-max-width: 100%;
-height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
-a{
-text-decoration: none;
-color: black;
+a {
+  text-decoration: none;
+  color: black;
 }
 
-.fa-arrow-up{
-cursor: pointer;
+.fa-arrow-up {
+  cursor: pointer;
 }
 
-.sidecounter{
-border: 1px solid white;
-border-radius: 5px;
-width: 60px;
-text-align: center;
-color: black;
+.sidecounter {
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 60px;
+  text-align: center;
+  color: black;
 }
 
-.td{
+.td {
   text-decoration: none;
   color: #fff;
 }
 
-.share{
-border: none;
-border-radius: 5px;
-width: 60px;
-text-align: center;
-color: black;
+.share {
+  border: none;
+  border-radius: 5px;
+  width: 60px;
+  text-align: center;
+  color: black;
 }
 
 .bg-successes {
-background-color: #8E929C!important;
+  background-color: #474a51 !important;
 }
 
-.bg-height{
+.bg-height {
   height: 100px;
 }
 
-.product-description {
+.post-description {
   height: 90px !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
+  font-weight: 600;
+  line-height: 1.14;
+  font-size: 14px;
+  text-align: left;
+  color: #fff;
+  display: inline-block;
+  max-height: 45px;
 }
 
-.text-grays{
-color: #8E929C !important;
+.text-grays {
+  color: #8E929C !important;
 }
 
-.text-bluewhale{
-color: #AED8EA;
-font-size: 1.5rem !important;
+.text-bluewhale {
+  color: #AED8EA;
+  font-size: 1.5rem !important;
 }
 
 .custom-footer {
-  background-color: #474a50; /* Light yellow color */
+  background-color: #474a50;
+  /* Light yellow color */
 }
 
-
 .post-bk {
-  background: #474a51;
+  background: #2e3035;
   color: #fff;
   text-decoration: none;
-  height: 100%; /* Make sure it fills the full height of the parent */
-  min-height: 100vh; /* Ensures it takes at least the full height of the viewport */
+  height: 100%;
+  /* Make sure it fills the full height of the parent */
+  min-height: 100vh;
+  /* Ensures it takes at least the full height of the viewport */
   display: flex;
   flex-direction: column;
 }
 
-.post-bk a{
-background: #474a51;
-color: #fff;
-text-decoration: none;
+.post-bk a {
+  background: #474a51;
+  color: #fff;
+  text-decoration: none;
+}
+
+.gallery-title {
+  font-size: 24px;
+}
+
+.gallery-desc {
+  font-size: 15px;
+}
+
+.comment-text {
+  font-size: 15px;
+  line-height: 150%;
+  overflow-wrap: break-word;
+  color: #eff1f4;
+  white-space: pre-line;
+}
+
+.author-name {
+  min-width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Proxima Nova Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #1bb76e;
+  cursor: pointer;
+}
+
+.views-wrapper {
+  font-size: 12px;
+}
+
+.post-title {
+  font-weight: 600;
+  line-height: 1.14;
+  font-size: 14px;
+  text-align: left;
+  color: #fff;
+  display: inline-block;
+  max-height: 45px;
 }
 
 .navBar-btn {
-background: #6432f9 !important;
-box-shadow: 0 3px 4px rgba(0,0,0,.12);
-padding: 0 10px 0 9px;
-overflow: hidden;
-margin: auto 8px ;
-line-height: 35px;
+  background: #6432f9 !important;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, .12);
+  padding: 0 10px 0 9px;
+  overflow: hidden;
+  margin: auto 8px;
+  line-height: 35px;
 }
 
 .navBar-btn-logout {
   background: red !important;
-  box-shadow: 0 3px 4px rgba(0,0,0,.12);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, .12);
   padding: 0 10px 0 9px;
   overflow: hidden;
   margin: auto 0;
   line-height: 35px;
-  }
-
-.navBar-signup {
-background: #1bb76e;
-box-shadow: 0 3px 4px rgba(0,0,0,.12);
-padding: 0 10px 0 9px;
-overflow: hidden;
-margin: auto 0;
-line-height: 35px;
 }
 
-.like-button, .unlike-button{
+.navBar-signup {
+  background: #1bb76e;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, .12);
+  padding: 0 10px 0 9px;
+  overflow: hidden;
+  margin: auto 0;
+  line-height: 35px;
+}
+
+.like-button,
+.unlike-button {
   cursor: pointer;
 }
 
@@ -162,61 +230,171 @@ line-height: 35px;
   transition: opacity 500ms;
 }
 
-.comment-posts{
+/* .custom-container {
+  width: 100%;
+  max-width: 1000px; 
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #333; 
+  border-radius: 10px;   
+} */
+
+.custom-container {
+  width: 100%;
+  max-width: 1000px; /* Adjust as needed */
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.profile-background {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(37, 38, 41, .24) 26.22%, #27292d 100%), linear-gradient(0deg, #171544, #171544);
+
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+/* .profile-bk {
+  background-image: url("./images/bg.jpg");
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+.Profile-About h2{
+  font-size: 15px;
+  font-family: "Proxima Nova ExtraBold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #8da6c9;
+  text-transform: uppercase;
+}
+
+.Profile-textCallout {
+  color: #fff;
+  font-family: "Proxima Nova Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  margin-top: 5px;
+}
+
+.Profile-content {
+  margin-top: 40px;
+  position: relative;
+}
+
+.medallion-item {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.medallion-tooltip {
+  position: absolute;
+  bottom: 40px; /* Adjust based on image size */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.medallion-item:hover .medallion-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.trophy-item {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.trophy-tooltip {
+  position: absolute;
+  bottom: 10px; /* Adjust based on image size */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.trophy-item:hover .trophy-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.comment-posts {
   display: flex;
   gap: 10px;
 }
 
-.iconz{
+.iconz {
   cursor: pointer;
 }
 
-.welcome-note{
+.welcome-note {
   text-decoration: none;
   color: blue;
   display: flex;
   gap: 10px;
 }
 
-.reg-bk{
+.reg-bk {
   padding: 20px;
   background-color: #141518;
 }
 
-.grid-5{
+.grid-5 {
   background-color: #2C2F34;
-padding: 10px 0;
+  padding: 10px 0;
   text-align: center;
   border-radius: 5px;
 }
 
-.sc-bk{
+.sc-bk {
   background-color: #141518;
   margin: 20px;
   padding: 20px;
   border-radius: 5px;
 }
 
-.form-heading2{
+.form-heading2 {
   font-size: 15px !important;
   color: white;
   text-align: center;
   padding: 10px;
 }
 
-.form-btn2{
+.form-btn2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding: 20px;
 }
 
-.form-input{
+.form-input {
   background-color: #2C2F34;
   padding: 20px;
   border-radius: 5px;
 }
 
-.form-input input{
+.form-input input {
   width: 100%;
   background-color: #141518;
   border: none;
@@ -225,63 +403,63 @@ padding: 10px 0;
 
 .form-control {
   background-color: #141518 !important;
-  border:none !important;
+  border: none !important;
   transition: none !important;
   color: #fff !important;
 }
 
-.newpost{
+.newpost {
   text-decoration: none;
   color: #fff;
 }
 
-.border-none{
+.border-none {
   border: none !important;
 }
 
-.tag-section{
+.tag-section {
   background-image: url("./images/homebg-1.png");
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
-  }
+}
 
-  .new-post{
-    background-color: #8E929C !important;
-  }
+.new-post {
+  background-color: #8E929C !important;
+}
 
-  .post-buttons{
-    gap: 10px;
-  }
+.post-buttons {
+  gap: 10px;
+}
 
-  .create-post-form .form-control{
-    background-color: transparent !important;
-    color: #5B5D67 !important;
-  }
+.create-post-form .form-control {
+  background-color: transparent !important;
+  color: #5B5D67 !important;
+}
 
-  .create-post-form .description{
-    background-color: #44474E !important;
-   color: #fff !important;
-    border-radius: 0;
-  }
+.create-post-form .description {
+  background-color: #44474E !important;
+  color: #fff !important;
+  border-radius: 0;
+}
 
-  .description::placeholder {
-    color: #E0E0E0 !important; 
+.description::placeholder {
+  color: #E0E0E0 !important;
 }
 
 .title::placeholder {
-  color: #E0E0E0 !important; 
+  color: #E0E0E0 !important;
   font-size: 20px;
 }
 
-.tags{
+.tags {
   border: 1px solid black !important;
   width: 200px !important;
   color: #fff !important;
 }
 
-.imgur-social-icons{
+.imgur-social-icons {
   cursor: pointer;
 }
 
@@ -297,7 +475,7 @@ padding: 10px 0;
   background-color: red;
 }
 
-.nav-icons{
+.nav-icons {
   cursor: pointer;
   margin-top: 10px;
   padding-right: 10px;
@@ -345,96 +523,96 @@ padding: 10px 0;
   position: fixed;
   top: 0;
   right: 0;
-  width: 300px; 
+  width: 300px;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  color: #fff; 
-  background-color: rgba( 92, 59, 119, 255 );
+  color: #fff;
+  background-color: rgba(92, 59, 119, 255);
 }
 
-.popup{
-  background-color: rgba( 92, 59, 119, 255 );
+.popup {
+  background-color: rgba(92, 59, 119, 255);
   color: #fff;
 }
 
-.popup-flex{
+.popup-flex {
   display: flex;
   justify-content: space-between;
   padding: 20px 20px 0px;
 }
 
-.popup-link{
+.popup-link {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding: 20px;
   gap: 40px;
 }
 
-.popup-link button{
-  background-color: rgba( 92, 59, 119, 255 );
+.popup-link button {
+  background-color: rgba(92, 59, 119, 255);
   border: none;
   color: #ccc;
 }
 
-.popup-welcomeX{
+.popup-welcomeX {
   cursor: pointer;
   color: red;
 }
 
-.popup-icon{
+.popup-icon {
   font-size: 30px;
   cursor: pointer;
 }
 
-.popup-icon2{
+.popup-icon2 {
   font-size: 15px;
   color: red;
 }
 
-.popup-icon3{
+.popup-icon3 {
   font-size: 15px;
   color: white;
 }
 
-.notification-bar{
+.notification-bar {
   cursor: pointer;
   display: flex;
   gap: 10px;
   padding: 20px 0px 10px 0px;
 }
 
-.notification-bar p{
-background-color: blueviolet;
-border-radius: 20px;
-padding: 5px;
+.notification-bar p {
+  background-color: blueviolet;
+  border-radius: 20px;
+  padding: 5px;
 }
 
-.notification{
+.notification {
   padding: 10px 0px;
   /* font-size: 15px; */
   font-family: "Ubuntu", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.49;
-    color: #c8a9ff;
-    text-align: left;
-      overflow-y: auto;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.49;
+  color: #c8a9ff;
+  text-align: left;
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {
-#tagContainer{
+  #tagContainer {
     display: none;
-}
+  }
 }
 
 @media (max-width: 320px) {
-.navbar-brand h1 {
-  text-transform: uppercase;
-  font-family: cursive;
-  font-size: 1.5rem;
-}
+  .navbar-brand h1 {
+    text-transform: uppercase;
+    font-family: cursive;
+    font-size: 1.5rem;
+  }
 }

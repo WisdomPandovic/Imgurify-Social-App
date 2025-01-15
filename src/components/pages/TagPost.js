@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { FaComment } from 'react-icons/fa';
 import { FaEye, FaArrowUp } from 'react-icons/fa';
 import { ImArrowDown } from 'react-icons/im';
 import { ImArrowUp } from 'react-icons/im';
 import { BsArrowLeftShort } from 'react-icons/bs';
+import { FaMessage } from "react-icons/fa6";
 import { ImgurContext } from '../Context/ImgurContext';
 
 function TagPost() {
@@ -46,13 +46,13 @@ function TagPost() {
             {posts.map((post) => (
               <div key={post._id} className={`post-item col-lg-4 col-md-6 mb-3 ${post._id}`}>
                 <div className="bg-successes bg-height p-3">
-                  <div className="product-title pb-3 text-white">{post.title}</div>
+                  <div className="post-title pb-3 text-white">{post.title}</div>
                 </div>
                 <Link to={`/postDetails/${post._id}`} className="post-link">
                   <img src={post.image} className="img-fluid d-block w-100" alt="Post Image" />
                 </Link>
                 <div className="bg-successes p-3">
-                  <div className="product-description pb-3 text-white">{post.description}</div>
+                  <div className="post-description pb-3 text-white">{post.description}</div>
                 </div>
                 <div className="icons d-flex justify-content-between text-white pt-5 bg-successes p-3">
                   <div className="like-buttons">
@@ -62,7 +62,7 @@ function TagPost() {
                     <ImArrowDown className="like-button" onClick={() => UnLikePost(post._id)} />
                   </div>
                   <div className="comment-icon">
-                    <FaComment className="me-2" />
+                    <FaMessage className="me-2" />
                     {post.comments.length}
                   </div>
                   <div className="view-icon">

@@ -17,6 +17,7 @@ import { TbArrowBigDown } from 'react-icons/tb'
 
 import { Link } from 'react-router-dom';
 import { FaComment } from 'react-icons/fa';
+import { FaMessage } from "react-icons/fa6";
 import { FaEye } from 'react-icons/fa';
 import { ImArrowDown } from 'react-icons/im';
 import { ImArrowUp } from 'react-icons/im';
@@ -202,6 +203,10 @@ function PostDetails({ uploadedImageUrl }) {
         return formatDistanceToNow(new Date(date), { addSuffix: true });
     };
 
+    const handleUsernameClick = () => {
+        navigate(`/user/${post?.user.username}`);
+      };
+
     // Return loading or error message if post is null
     if (loading) {
         return (
@@ -231,11 +236,11 @@ function PostDetails({ uploadedImageUrl }) {
 
                 <Col lg={6} md={12} sm={12} className="center-column pt-5 pb-5 order-lg-2 order-md-1 order-sm-1">
                     <Container>
-                        <h2 id="post-title" className='text-white'>{post?.title}</h2>
+                        <h2 id="post-title" className='gallery-title text-white'>{post?.title}</h2>
 
-                        <div id="post-username" className="text-success ">{post?.user.username}</div>
+                        <div id="post-username" className="text-success author-name" onClick={handleUsernameClick}>{post?.user.username}</div>
 
-                        <p id="total-views" className='text-white'>{post?.views} views</p>
+                        <p id="total-views" className='text-white views-wrapper'>{post?.views} views</p>
 
                         <Row className="post-image">
                             <Col>
@@ -246,7 +251,7 @@ function PostDetails({ uploadedImageUrl }) {
 
                         <Row className="post-image">
                             <Col>
-                                <p className='text-white mt-2'>{post.description}</p>
+                                <p className='text-white mt-2 gallery-desc'>{post.description}</p>
                             </Col>
                         </Row>
 
@@ -292,8 +297,8 @@ function PostDetails({ uploadedImageUrl }) {
                                 <p className='comment-date mr-2'>.</p>
                                 <p className='comment-date'>{formatDate(comment.date)}</p>
                             </div>
-                            <div className='comment-text'>
-                                <p>{comment.text}</p>
+                            <div className='galleryComment-body'>
+                                <p className='comment-text'>{comment.text}</p>
                             </div>
 
                             <div className='d-flex justify-content-between comment-stat mr-2'>
@@ -342,21 +347,27 @@ function PostDetails({ uploadedImageUrl }) {
                         {posts.map((data) => (
                             <div key={data._id} className={`post-item col-lg-4 col-md-6 mb-3 ${data._id}`}>
                                 <div className="bg-successes bg-height p-3">
-                                    <div className="product-title pb-3 text-white">{data.title}</div>
+                                    <div className="post-title pb-3 text-white">{data.title}</div>
                                 </div>
                                 <Link to={``} className="post-link">
                                     <img src={data.image} className="img-fluid d-block w-100" alt="Post Image" />
                                 </Link>
                                 <div className="bg-successes p-3">
-                                    <div className="product-description pb-3 text-white">{data.description}</div>
+                                    <div className="post-description pb-3 text-white">{data.description}</div>
                                     <div className="icons d-flex justify-content-between text-white pt-3">
                                         <div className="like-buttons">
                                             <ImArrowUp className="like-button" onClick={() => LikePost(data._id)} />
                                             <span className="like-count p-2">{data.likes.length}</span>
                                             <ImArrowDown className="like-button" onClick={() => UnLikePost(data._id)} />
                                         </div>
-                                        <FaComment />
-                                        <FaEye />
+                                        <div className="comment-icon">
+                                            <FaMessage className="me-2" />
+                                            {post.comments.length}
+                                        </div>
+                                        <div className="view-icon">
+                                            <FaEye className="me-2" />
+                                            {post.views}
+                                        </div>
                                     </div>
                                 </div>
                                 <ToastContainer />
