@@ -184,12 +184,18 @@ const UserProfile = () => {
         <Container fluid className="mt-3 profile-background">
             <SocialNav />
             <div className="custom-container profile-bk text-white d-flex flex-column align-items-start justify-content-start mt-3">
-                <div className='d-flex gap-4'>
-                    <img src={avatar} alt="User Avatar" className="rounded-circle mb-3" style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
-                    <div>
+                <div className='row align-items-center gap-4'>
+                    <div className="col-12 col-md-auto text-center">
+                        <img
+                            src={avatar}
+                            alt="User Avatar"
+                            className="rounded-circle mb-3"
+                            style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                        />
+                    </div>
+                    <div className="col-12 col-md">
                         <h1 className="profile-user">{user.username}</h1>
-
-                        <div className="Profile-stats d-flex gap-4 text-uppercase">
+                        <div className="Profile-stats d-flex flex-wrap gap-4 text-uppercase">
                             <p>. {user.notoriety} .</p>
                             <p><strong>Followers:</strong> {followers}</p>
                             <p><strong>Following:</strong> {user.following}</p>
@@ -346,36 +352,37 @@ const UserProfile = () => {
                             </div>
                             <div className="col-md-7">
                                 <h2 className="text-uppercase"><strong>Trophies</strong></h2>
-                                <div className="row">
-                                    <div className="col-md-4 mb-3 trophy-item">
-                                        <img src={conversation_starter} alt="Conversation Starter Trophy" className="rounded-circle" width="150" height="150" />
-                                        <div className="trophy-tooltip">
-                                            <strong>Conversation Starter</strong><br />
-                                            Awarded for starting engaging conversations.
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 mb-3 trophy-item">
-                                        <img src={dawww} alt="Daww Trophy" className="rounded-circle" width="150" height="150" />
-                                        <div className="trophy-tooltip">
-                                            <strong>Daww</strong><br />
-                                            Recognized for heartwarming content.
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 mb-3 trophy-item">
-                                        <img src={oc} alt="OC Trophy" className="rounded-circle" width="150" height="150" />
-                                        <div className="trophy-tooltip">
-                                            <strong>OC Creator</strong><br />
-                                            Awarded for original content creation.
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 mb-3 trophy-item">
-                                        <img src={gone_mobile} alt="Gone Mobile Trophy" className="rounded-circle" width="150" height="150" />
-                                        <div className="trophy-tooltip">
-                                            <strong>Gone Mobile</strong><br />
-                                            Given for active participation via mobile.
-                                        </div>
-                                    </div>
-                                </div>
+                                <div className="row row-cols-2 row-cols-md-3 g-3">
+  <div className="col trophy-item text-center">
+    <img src={conversation_starter} alt="Conversation Starter Trophy" className="rounded-circle" width="150" height="150" />
+    <div className="trophy-tooltip">
+      <strong>Conversation Starter</strong><br />
+      Awarded for starting engaging conversations.
+    </div>
+  </div>
+  <div className="col trophy-item text-center">
+    <img src={dawww} alt="Daww Trophy" className="rounded-circle" width="150" height="150" />
+    <div className="trophy-tooltip">
+      <strong>Daww</strong><br />
+      Recognized for heartwarming content.
+    </div>
+  </div>
+  <div className="col trophy-item text-center">
+    <img src={oc} alt="OC Trophy" className="rounded-circle" width="150" height="150" />
+    <div className="trophy-tooltip">
+      <strong>OC Creator</strong><br />
+      Awarded for original content creation.
+    </div>
+  </div>
+  <div className="col trophy-item text-center">
+    <img src={gone_mobile} alt="Gone Mobile Trophy" className="rounded-circle" width="150" height="150" />
+    <div className="trophy-tooltip">
+      <strong>Gone Mobile</strong><br />
+      Given for active participation via mobile.
+    </div>
+  </div>
+</div>
+
                             </div>
                         </div>
                     </div>
@@ -407,44 +414,44 @@ const UserProfile = () => {
                     </div>
                 )}
 
-{selectedTab === "mycomment" && (
-  <div className='custom-container p-4 mb-3'>
-    <p><strong>Comments</strong></p>
-    {commentsLoading ? (
-      <div className="loader-container text-center">
-        <RotatingLines
-          strokeColor="grey"
-          strokeWidth="5"
-          animationDuration="0.75"
-          width="50"
-          visible={true}
-        />
-      </div>
-    ) : comments.length > 0 ? (
-      comments.map(comment => (
-        <div key={comment._id} className="comment-item p-3 mb-3" style={{ backgroundColor: '#474a51' }}>
-          <div className='d-flex justify-content-between'>
-            <div>
-              <p>{comment.text}</p>
-              <span>By {comment.comment_user.username} on {new Date(comment.date).toLocaleDateString()}</span>
-            </div>
-            <button
-              className="btn btn-sm btn-outline-light"
-              onClick={() => {
-                navigator.clipboard.writeText(comment.text);
-                toast.success("Copied!");
-              }}
-            >
-              Copy
-            </button>
-          </div>
-        </div>
-      ))
-    ) : (
-      <p>No comments found.</p>
-    )}
-  </div>
-)}
+                {selectedTab === "mycomment" && (
+                    <div className='custom-container p-4 mb-3'>
+                        <p><strong>Comments</strong></p>
+                        {commentsLoading ? (
+                            <div className="loader-container text-center">
+                                <RotatingLines
+                                    strokeColor="grey"
+                                    strokeWidth="5"
+                                    animationDuration="0.75"
+                                    width="50"
+                                    visible={true}
+                                />
+                            </div>
+                        ) : comments.length > 0 ? (
+                            comments.map(comment => (
+                                <div key={comment._id} className="comment-item p-3 mb-3" style={{ backgroundColor: '#474a51' }}>
+                                    <div className='d-flex justify-content-between'>
+                                        <div>
+                                            <p>{comment.text}</p>
+                                            <span>By {comment.comment_user.username} on {new Date(comment.date).toLocaleDateString()}</span>
+                                        </div>
+                                        <button
+                                            className="btn btn-sm btn-outline-light"
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(comment.text);
+                                                toast.success("Copied!");
+                                            }}
+                                        >
+                                            Copy
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No comments found.</p>
+                        )}
+                    </div>
+                )}
             </div>
         </Container>
     );
