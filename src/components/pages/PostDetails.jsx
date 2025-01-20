@@ -106,7 +106,7 @@ function PostDetails({ uploadedImageUrl }) {
         } catch (error) {
             console.error('Error fetching posts:', error);
         }
-    }  
+    }
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -182,25 +182,25 @@ function PostDetails({ uploadedImageUrl }) {
             });
         }
 
-         // Trigger the poll to fetch new comments
-      getCommentData()
+        // Trigger the poll to fetch new comments
+        getCommentData()
     };
     const handlecommentChange = event => {
         setComment(event.target.value);
     }
 
     // Polling every 5 seconds to get updated comments
-  useEffect(() => {
-    getCommentData(); // Fetch comments on component mount
+    useEffect(() => {
+        getCommentData(); // Fetch comments on component mount
 
-    // Set up the polling interval
-    const intervalId = setInterval(() => {
-      getCommentData();
-    }, 5000); // Poll every 5 seconds
+        // Set up the polling interval
+        const intervalId = setInterval(() => {
+            getCommentData();
+        }, 5000); // Poll every 5 seconds
 
-    // Clean up the polling interval when the component is unmounted
-    return () => clearInterval(intervalId);
-  }, [_id]);
+        // Clean up the polling interval when the component is unmounted
+        return () => clearInterval(intervalId);
+    }, [_id]);
 
     // GET COMMENT FROM API
     const getCommentData = async () => {
@@ -216,7 +216,7 @@ function PostDetails({ uploadedImageUrl }) {
 
     const handleUsernameClick = () => {
         navigate(`/user/${post?.user.username}`);
-      };
+    };
 
     // Return loading or error message if post is null
     if (loading) {
@@ -324,30 +324,30 @@ function PostDetails({ uploadedImageUrl }) {
 
                                     <div>{comment.replies.length} <span>replies</span></div>
                                 </div>
-                                <div className='bg-success p-1' onClick={() => handleOpenReplyPopup(comment._id)}><FaComment /> Reply</div>
-
+                                <div className='bg-success p-1' onClick={() => handleOpenReplyPopup(comment._id)} style={{ cursor: 'pointer' }}><FaComment /> Reply</div>
                             </div> <hr />
+                            {showReplyPopup && (
+                                <div className="reply-popup">
+                                    <Form id="add-comment-form" onSubmit={handleReplySubmit} value={userID}>
+                                        <Form.Group className="mb-3">
+                                            <Form.Label htmlFor="comment-text" className=' text-white mt-4'>Add your comment:</Form.Label>
+                                            <Form.Control as="textarea" id="comment-text" rows={3} value={reply.text} onChange={(e) => setReply({ ...reply, text: e.target.value })} />
+                                        </Form.Group>
+                                        <div className='comment-posts'>
+                                            <FaRegImage className='text-white pt-2' style={{ fontSize: '30px', cursor: 'pointer' }} />
+                                            <AiOutlineGif className='text-white pt-2 mr-2' style={{ fontSize: '30px', cursor: 'pointer' }} />
+                                            <div className='text-white pt-2'>500</div>
+                                            <Button style={{ backgroundColor: '#33353b', color: '#fff', border: 'none', outline: 'none' }} type="submit" >Reply</Button>
+                                            <Button onClick={handleCloseReplyPopup} style={{ border: 'none', outline: 'none' }} className='bg-danger'>Cancel</Button>
+                                        </div>
+                                    </Form>
+
+                                </div>
+                            )}
                         </div>
                     ))}
 
-                    {showReplyPopup && (
-                        <div className="reply-popup">
-                            <Form id="add-comment-form" onSubmit={handleReplySubmit} value={userID}>
-                                <Form.Group className="mb-3">
-                                    <Form.Label htmlFor="comment-text" className=' text-white mt-4'>Add your comment:</Form.Label>
-                                    <Form.Control as="textarea" id="comment-text" rows={3} value={reply.text} onChange={(e) => setReply({ ...reply, text: e.target.value })} />
-                                </Form.Group>
-                                <div className='comment-posts'>
-                                    <FaRegImage className='text-white pt-2' style={{ fontSize: '30px' }} />
-                                    <AiOutlineGif className='text-white pt-2 mr-2' style={{ fontSize: '30px' }} />
-                                    <div className='text-white pt-2'>500</div>
-                                    <Button type="submit" >Reply</Button>
-                                    <Button onClick={handleCloseReplyPopup} className='bg-danger'>Cancel</Button>
-                                </div>
-                            </Form>
 
-                        </div>
-                    )}
                 </Col>
             </Row>
 

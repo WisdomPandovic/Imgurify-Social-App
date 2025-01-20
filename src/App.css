@@ -103,6 +103,10 @@ a {
   height: 100px;
 }
 
+.reply-popup{
+  margin-bottom: 40px;
+}
+
 .post-description {
   height: 90px !important;
   overflow: hidden !important;
