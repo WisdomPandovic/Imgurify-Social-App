@@ -21,7 +21,11 @@ export const fetchPosts = () => async (dispatch) => {
             throw new Error('Failed to fetch posts');
         }
         const posts = await response.json();
-        dispatch(setPosts(posts)); // Dispatch setPosts action with fetched posts
+
+        // Sort the posts by 'createdAt' field in descending order
+        const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        dispatch(setPosts(sortedPosts)); // Dispatch setPosts action with sorted posts
     } catch (error) {
         console.error('Error fetching posts:', error);
     }

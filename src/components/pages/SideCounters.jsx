@@ -30,6 +30,24 @@ function SideCounters({ data }) {
     dispatch(unlikePost(postId, userID));
   };
 
+  // Share functionality
+  const handleShareClick = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: post.title, // Post title
+          text: post.description, // Post description
+          url: window.location.href, // Current page URL or post URL
+        });
+        console.log("Post shared successfully!");
+      } catch (error) {
+        console.error("Error sharing post:", error);
+      }
+    } else {
+      alert('Sharing is not supported in this browser');
+    }
+  };
+
   // Guard clause for missing post
   if (!post) {
     return <div>Post not found</div>;
@@ -50,7 +68,7 @@ function SideCounters({ data }) {
 
       <section id="share-section" className="d-flex flex-column justify-content-center align-items-center">
         <Container className="share mt-5 pb-3 pt-3 text-white">
-          <AiOutlineShareAlt />
+          <AiOutlineShareAlt onClick={handleShareClick} style={{ cursor: 'pointer' }} />
         </Container>
       </section>
 

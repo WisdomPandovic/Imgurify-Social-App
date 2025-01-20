@@ -40,7 +40,6 @@ function PostDetails({ uploadedImageUrl }) {
     // const [selectedCommentId, setSelectedCommentId] = useState(null);
     const [commentId, setCommentId] = useState(null);
 
-
     const handleOpenReplyPopup = (commentId) => {
         setCommentId(commentId);
         // setSelectedCommentId(commentId);
@@ -92,7 +91,6 @@ function PostDetails({ uploadedImageUrl }) {
             });
     };
 
-
     useEffect(() => {
         setLoading(true);
         fetchPosts();
@@ -102,12 +100,13 @@ function PostDetails({ uploadedImageUrl }) {
         try {
             const response = await fetch('https://imgurif-api.onrender.com/api/post');
             const data = await response.json();
-            const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-            setPosts(sortedData);
+            // Sort the data from oldest to newest by 'date' field
+            const sortedData = data.sort((a, b) => new Date(a.date) - new Date(b.date));
+            setPosts(sortedData); // Set the posts after sorting
         } catch (error) {
             console.error('Error fetching posts:', error);
         }
-    };
+    }  
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -182,14 +181,26 @@ function PostDetails({ uploadedImageUrl }) {
                 comment_user: {},
             });
         }
+
+         // Trigger the poll to fetch new comments
+      getCommentData()
     };
     const handlecommentChange = event => {
         setComment(event.target.value);
     }
 
-    useEffect(() => {
-        getCommentData()
-    }, [])
+    // Polling every 5 seconds to get updated comments
+  useEffect(() => {
+    getCommentData(); // Fetch comments on component mount
+
+    // Set up the polling interval
+    const intervalId = setInterval(() => {
+      getCommentData();
+    }, 5000); // Poll every 5 seconds
+
+    // Clean up the polling interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, [_id]);
 
     // GET COMMENT FROM API
     const getCommentData = async () => {
@@ -379,7 +390,6 @@ function PostDetails({ uploadedImageUrl }) {
             <div className="back-to-top" onClick={scrollToTop} style={{ display: isVisible ? 'block' : 'none' }}>
                 <FaArrowUp className='FaArrowUp' />
             </div>
-
         </Container>
     );
 }
