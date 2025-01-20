@@ -22,7 +22,7 @@ function ImgurProvider(props) {
   // console.log("userID in ImgurContext:", userID);
   // console.log("isLoggedIn in ImgurContext:", isLoggedIn);
 
-  console.log("userID in ImgurProvider:", userID);
+  // console.log("userID in ImgurProvider:", userID);
   // console.log("likes in ImgurProvider:", likes);
   // console.log("dislike in ImgurProvider:", dislike);
   // console.log("isLoggedIn in ImgurProvider:", isLoggedIn);
@@ -47,148 +47,85 @@ function ImgurProvider(props) {
   }, []);
 
   async function LikePost(_id) {
-
     console.log("LikePost function called with _id:", _id);
 
+     // API call will follow
+  console.log("Sending request to API...");
+  
     // Check if the user is logged in
     if (!isLoggedIn) {
       toast.error("You need to sign in to like the post.");
       return;
     }
-
+  
     // Check if the user ID is set correctly
     if (!userID) {
       console.error("User ID is not set correctly.");
       toast.error("User ID is not set correctly.");
       return;
     }
-
+  
     const loggedin = {
       user: userID,
     };
-
+  
     try {
       const response = await axios.put(
-        `http://localhost:3007/likes/${_id}`,
+        `https://imgurif-api.onrender.com/api/likes/${_id}`,
         loggedin
       );
 
+      console.log("API Response:", response);
+  
       console.log("LikePost response:", response.data);
-
+  
       // Check for network errors
       if (response.status !== 200) {
         throw new Error("Failed to like the post. Please try again later.");
       }
-
-      // Check for specific error cases
-      if (response.data.msg === "Post already liked by this user") {
+  
+      // Check for specific error messages from the backend
+      if (response.data.message === "Post already liked by this user") {
         toast.error("Post already liked by this user.");
         return;
       }
-
-      // Log response for debugging
-      // console.log("Like response:", response.data);
-
-      // Check if response.data contains the correct ID
-      console.log("Response ID:", response.data[0]);
-
-      // Check the structure of _id in your likes state
-      // console.log("Current _id:", _id);
-
-      // Compare both values
-      // console.log("Do response ID and current _id match?", response.data[0] === _id);
-
-       // Log response for debugging
-       console.log("Like response:", response.data);
-
-      // Update likes if successful
-      setLikes((prevLikes) => {
-        return prevLikes.map((like) => {
-          if (like._id === _id) {
-            return { ...like, likes: like.likes + 1 };
-          }
-          return like;
+  
+      // Response structure is an array with the post ID
+      const likedPostId = response.data[0];
+      console.log("Liked post ID:", likedPostId);
+  
+      // Check if the liked post ID matches the current post _id
+      if (likedPostId === _id) {
+        // Update likes if successful
+        setLikes((prevLikes) => {
+          const updatedLikes = prevLikes.map((like) => {
+            if (like._id === _id) {
+              // Log the previous like count for debugging
+              console.log("Previous like count:", like.likes);
+              return { ...like, likes: like.likes + 1 }; // Increment likes
+            }
+            return like;
+          });
+  
+          // Log the updated likes state for debugging
+          console.log("Updated likes state:", updatedLikes);
+  
+          return updatedLikes; // Return updated state
         });
-      });
-
-      toast.success("Post has been liked.");
+  
+        toast.success("Post has been liked.");
+      } else {
+        toast.error("Failed to like the post. Please try again.");
+      }
     } catch (error) {
       console.error("Error liking the post:", error.message);
       toast.error("An error occurred while liking the post.");
     }
-  };
-
-
-  // async function LikePost(_id) {
-  //   // Check if the user is logged in
-  //   if (!isLoggedIn) {
-  //     toast.error("You need to sign in to like the post.");
-  //     return;
-  //   }
-
-  //   // Check if the user ID is set correctly
-  //   if (!userID ) {
-  //     console.error("User ID is not set correctly.");
-  //     toast.error("User ID is not set correctly.");
-  //     return;
-  //   }
-
-  //   const loggedin = {
-  //     user: userID,
-  //   };
-
-  //   try {
-  //     const response = await axios.put(
-  //       `http://localhost:3007/likes/${_id}`,
-  //       loggedin
-  //     );
-
-  //     // Check for network errors
-  //     if (response.status !== 200) {
-  //       throw new Error("Failed to like the post. Please try again later.");
-  //     }
-
-  //     // Check for specific error cases
-  //     if (response.data.msg === "Post already liked by this user") {
-  //       toast.error("Post already liked by this user.");
-  //       return;
-  //     }
-
-  //      // Update likes if successful
-  //      console.log("Like response:", response.data); // Log response for debugging
-
-  //     // Update likes if successful
-  //     setLikes((prevLikes) => {
-  //       console.log("Previous likes state:", prevLikes);
-  //       console.log("Like response:", response.data);
-
-  //       // Find the index of the like object with the matching ID
-  //       const index = prevLikes.findIndex((like) => like._id === response.data[0]);
-
-  //       // If the index is found, update the likes count at that index
-  //       if (index !== -1) {
-  //         const updatedLikes = [...prevLikes];
-  //         updatedLikes[index] = {
-  //           ...updatedLikes[index],
-  //           likes: updatedLikes[index].likes + 1,
-  //         };
-  //         console.log("Updated likes state:", updatedLikes);
-  //         return updatedLikes;
-  //       }
-
-  //       // If the index is not found, return the previous likes state
-  //       return prevLikes;
-  //     });
-
-
-  //     console.log("Updated likes state:", likes); 
-
-  //     toast.success("Post has been liked.");
-  //   } catch (error) {
-  //     console.error("Error liking the post:", error.message);
-  //     toast.error("An error occurred while liking the post.");
-  //   }
-  // };
+  }
+  
+  
+  
+  
 
   async function UnLikePost(_id) {
     if (!userID) {
@@ -202,7 +139,7 @@ function ImgurProvider(props) {
 
     try {
       const response = await axios.put(
-        "http://localhost:3007/unlike/" + _id,
+        "https://imgurif-api.onrender.com/api/unlike/" + _id,
         loggedin
       );
       console.log("Unlike response:", response.data); // Log response for debugging
@@ -292,7 +229,7 @@ function ImgurProvider(props) {
 
     try {
       const response = await axios.put(
-        `http://localhost:3007/replylikes/${postId}/${commentId}`,
+        `https://imgurif-api.onrender.com/api/replylikes/${postId}/${commentId}`,
         loggedin
       );
 
@@ -348,7 +285,7 @@ function ImgurProvider(props) {
 
     try {
       const response = await axios.put(
-        `http://localhost:3007/replyunlikes/${postId}/${commentId}`,
+        `https://imgurif-api.onrender.com/api/replyunlikes/${postId}/${commentId}`,
         loggedin
       );
       console.log("Unlike response:", response.data); // Log response for debugging

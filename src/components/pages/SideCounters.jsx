@@ -1,3 +1,5 @@
+
+
 import { useContext, useEffect } from "react";
 import { Container } from 'react-bootstrap';
 import { AiOutlineShareAlt } from 'react-icons/ai';
@@ -14,37 +16,23 @@ function SideCounters({ data }) {
   const { userID } = useContext(ImgurContext);
 
   useEffect(() => {
-    dispatch(fetchPosts()); // Dispatch fetchPosts action on component mount
-}, [dispatch]);
+    dispatch(fetchPosts()); // Fetch posts on mount
+  }, [dispatch]);
 
-   // Log data._id to check if it matches any post in Redux state
-   console.log('Data ID:', data?._id);
-
-   // Find the specific post data from the state using the data._id
-   const post = posts.find(post => post._id === data?._id) || {};
-
-   console.log('Data ID:', data?._id);
-   console.log('Post:', post);
-   console.log('Post in SideCounters:', post);
+  // Find the specific post data using the post ID
+  const post = posts.find(post => post._id === data?._id);
 
   const handleLikeClick = (postId) => {
-    console.log("Like button clicked for post ID:", postId);
     dispatch(likePost(postId, userID));
   };
 
   const handleUnlikeClick = (postId) => {
-    console.log("Unlike button clicked for post ID:", postId);
     dispatch(unlikePost(postId, userID));
   };
-  
-  console.log("Post in SideCounters:", post);
 
+  // Guard clause for missing post
   if (!post) {
-    return <div>Post not found or data is missing</div>; // Safely handle missing post data
-  }
-
-  if (!data) {
-    return <div>Loading post data...</div>;
+    return <div>Post not found</div>;
   }
 
   return (
@@ -52,7 +40,7 @@ function SideCounters({ data }) {
       <section id="like-section" className="d-flex flex-column justify-content-center align-items-center">
         <Container className="sidecounter mt-5 pb-3 pt-3">
           <TbArrowBigUp className='text-white iconz' onClick={() => handleLikeClick(data._id)} />
-          <span className="d-block text-white">{data.likes?.length || 0}</span>
+          <span className="d-block text-white">{post?.likes?.length || 0}</span>
           <TbArrowBigDown className='text-white iconz' onClick={() => handleUnlikeClick(data._id)} />
           <div className="heart-icon text-white">
             <AiOutlineHeart />
@@ -71,7 +59,7 @@ function SideCounters({ data }) {
           <div className="heart-icon">
             <GoComment />
           </div>
-          <span className="d-block">{data.comments?.length || 0}</span>
+          <span className="d-block">{post.comments?.length || 0}</span>
         </Container>
       </section>
     </Container>
@@ -79,3 +67,4 @@ function SideCounters({ data }) {
 }
 
 export default SideCounters;
+

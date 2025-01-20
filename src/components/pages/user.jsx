@@ -164,7 +164,7 @@ const UserProfile = () => {
 
     if (loading) {
         return (
-            <div className="loader-container text-center">
+            <div className="loader-container d-flex justify-content-center text-center">
                 <RotatingLines
                     strokeColor="grey"
                     strokeWidth="5"
@@ -353,35 +353,35 @@ const UserProfile = () => {
                             <div className="col-md-7">
                                 <h2 className="text-uppercase"><strong>Trophies</strong></h2>
                                 <div className="row row-cols-2 row-cols-md-3 g-3">
-  <div className="col trophy-item text-center">
-    <img src={conversation_starter} alt="Conversation Starter Trophy" className="rounded-circle" width="150" height="150" />
-    <div className="trophy-tooltip">
-      <strong>Conversation Starter</strong><br />
-      Awarded for starting engaging conversations.
-    </div>
-  </div>
-  <div className="col trophy-item text-center">
-    <img src={dawww} alt="Daww Trophy" className="rounded-circle" width="150" height="150" />
-    <div className="trophy-tooltip">
-      <strong>Daww</strong><br />
-      Recognized for heartwarming content.
-    </div>
-  </div>
-  <div className="col trophy-item text-center">
-    <img src={oc} alt="OC Trophy" className="rounded-circle" width="150" height="150" />
-    <div className="trophy-tooltip">
-      <strong>OC Creator</strong><br />
-      Awarded for original content creation.
-    </div>
-  </div>
-  <div className="col trophy-item text-center">
-    <img src={gone_mobile} alt="Gone Mobile Trophy" className="rounded-circle" width="150" height="150" />
-    <div className="trophy-tooltip">
-      <strong>Gone Mobile</strong><br />
-      Given for active participation via mobile.
-    </div>
-  </div>
-</div>
+                                    <div className="col trophy-item text-center">
+                                        <img src={conversation_starter} alt="Conversation Starter Trophy" className="rounded-circle" width="150" height="150" />
+                                        <div className="trophy-tooltip">
+                                            <strong>Conversation Starter</strong><br />
+                                            Awarded for starting engaging conversations.
+                                        </div>
+                                    </div>
+                                    <div className="col trophy-item text-center">
+                                        <img src={dawww} alt="Daww Trophy" className="rounded-circle" width="150" height="150" />
+                                        <div className="trophy-tooltip">
+                                            <strong>Daww</strong><br />
+                                            Recognized for heartwarming content.
+                                        </div>
+                                    </div>
+                                    <div className="col trophy-item text-center">
+                                        <img src={oc} alt="OC Trophy" className="rounded-circle" width="150" height="150" />
+                                        <div className="trophy-tooltip">
+                                            <strong>OC Creator</strong><br />
+                                            Awarded for original content creation.
+                                        </div>
+                                    </div>
+                                    <div className="col trophy-item text-center">
+                                        <img src={gone_mobile} alt="Gone Mobile Trophy" className="rounded-circle" width="150" height="150" />
+                                        <div className="trophy-tooltip">
+                                            <strong>Gone Mobile</strong><br />
+                                            Given for active participation via mobile.
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

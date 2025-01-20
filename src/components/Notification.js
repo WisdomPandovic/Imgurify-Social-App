@@ -5,9 +5,9 @@ function Notification  ()  {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3007/notifications')
+    axios.get('https://imgurif-api.onrender.com/api/notifications')
       .then((response) => {
-        setNotifications(response.data);
+        setNotifications(response.data.data);
         console.log(response.data)
       })
       .catch((error) => {

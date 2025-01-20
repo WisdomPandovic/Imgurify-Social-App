@@ -26,7 +26,7 @@ import { FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 
 function PostDetails({ uploadedImageUrl }) {
     const { _id } = useParams();
-    console.log(_id)
+    // console.log(_id)
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
