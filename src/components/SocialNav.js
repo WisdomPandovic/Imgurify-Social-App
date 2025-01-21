@@ -10,6 +10,7 @@ import { FaPlusCircle } from "react-icons/fa";
 import Notification from "../components/Notification";
 import data from './data';
 import Modal from 'react-bootstrap/Modal'; // Import Modal
+import displayText from '../components/messageText'
 
 const SocialNav = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(ImgurContext);
@@ -82,7 +83,7 @@ const SocialNav = () => {
   const handleCloseModal = () => setShowModal(false);
 
   return (
-    <div className="social-nav">
+    <div className="">
       <Navbar expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">
@@ -135,9 +136,9 @@ const SocialNav = () => {
         </Container>
       </Navbar>
 
-      <div className="container text-center mt-3">
+      {/* <div className="container text-center mt-3">
         <h1 className="pb-5 text-bluewhale">{displayText}</h1>
-      </div>
+      </div> */}
 
        {/* Modal */}
        <Modal show={showModal} onHide={handleCloseModal}>

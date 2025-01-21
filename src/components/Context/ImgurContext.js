@@ -164,15 +164,15 @@ function ImgurProvider(props) {
   }
 
   useEffect(() => {
-    console.log("Updated likes state:", likes);
+    // console.log("Updated likes state:", likes);
   }, [likes]);
 
   useEffect(() => {
-    console.log("ReplyLikes state updated:", ReplyLikes);
+    // console.log("ReplyLikes state updated:", ReplyLikes);
   }, [ReplyLikes]);
 
   useEffect(() => {
-    console.log("isVisible state updated:", isVisible);
+    // console.log("isVisible state updated:", isVisible);
   }, [isVisible]);
 
   // useEffect(() => {
