@@ -484,6 +484,7 @@ function NewPosts() {
                         border: '2px dashed #ccc',
                         padding: '20px',
                         textAlign: 'center',
+                        color: "white"
                       }}
                     >
                       <input {...getInputProps()} />
@@ -543,13 +544,13 @@ function NewPosts() {
                     </p>
 
                     <div className="form-group text-white">
-                      <label htmlFor="selectedTag">Tags</label>
+                      <label htmlFor="selectedTag" className="mb-1">Tags</label>
                       <select
                         className="form-control tags"
                         id="selectedTag"
                         name="selectedTag"
                         value={selectedTag}
-                        onChange={handleInputChange}
+                        onChange={handleInputChange}                       
                       >
                         <option value="" disabled>
                           Select or Create Tag
