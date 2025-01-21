@@ -11,6 +11,7 @@ import { ImgurContext } from '../Context/ImgurContext';
 function TagPost() {
   const { _id } = useParams();
   const [posts, setPosts] = useState([]);
+  const [tagName, setTagName] = useState('');
   const { LikePost, UnLikePost, scrollToTop, isVisible } = useContext(ImgurContext);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function TagPost() {
       const data = await response.json();
       setPosts(data.post);
       console.log(data.post)
+      setTagName(data.title);
     } catch (error) {
       console.error('Error fetching posts by tag:', error);
     }
@@ -37,7 +39,8 @@ function TagPost() {
           </Link>
         </div>
         <h2>{posts.name}</h2>
-        <p className='text-center text-white p-5'>{posts.length} POSTS</p>
+        <p className='text-center text-white cover-name'>{tagName} </p>
+        <p className='text-center text-white cover-stats pb-5'>{posts.length} POSTS</p>
       </div>
       <div className='post-bk pt-4'>
         <div className='container'>
