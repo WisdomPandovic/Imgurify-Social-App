@@ -620,6 +620,22 @@ a {
   overflow-y: auto;
 }
 
+.post-container {
+  position: fixed;
+  top: 100px;
+  right: 10px;
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .post-container {
+    position: static;
+    top: auto;
+    right: auto;
+    z-index: auto;
+  }
+}
+
 @media (max-width: 768px) {
   #tagContainer {
     display: none;

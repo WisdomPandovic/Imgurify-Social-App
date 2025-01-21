@@ -323,6 +323,8 @@ function NewPosts() {
   const [imageURL, setImageURL] = useState('');
   const { userID } = useContext(ImgurContext);
 
+  const isMobile = window.innerWidth <= 989;
+
   useEffect(() => {
     fetchTags();
   }, []);
@@ -458,7 +460,7 @@ function NewPosts() {
         <div className="row">
           <div className="">
             <div className="card-body text-dark">
-              <form className="create-post-form"  onSubmit={handleSubmit}>
+              <form className="create-post-form" onSubmit={handleSubmit}>
                 <div className="row">
                   {/* Left Column: Form Fields */}
                   <div className="col-12 col-lg-7">
@@ -513,14 +515,19 @@ function NewPosts() {
                   </div>
 
                   {/* Right Column: Post Buttons and Tags */}
-                  <div className="col-12 col-lg-5" style={{ position: 'fixed', top: '100px', right: '10px',  zIndex: '999' }}>
+                  <div className="col-12 col-lg-5 post-container" style={{
+                    position: isMobile ? 'static' : 'fixed',
+                    top: isMobile ? 'auto' : '100px',
+                    right: isMobile ? 'auto' : '10px',
+                    zIndex: isMobile ? 'auto' : '999',
+                  }}>
                     <p className="mt-3 text-white">POST</p>
                     <div className="d-flex flex-column post-buttons">
                       <button
                         type="submit"
                         className="btn btn-success"
                         style={{ fontSize: '12px' }}
-                       
+
                       >
                         To Community
                       </button>
