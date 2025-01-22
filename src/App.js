@@ -44,6 +44,7 @@ import NewPosts from './components/pages/NewPosts';
 import PostDetails from './components/pages/PostDetails';
 import TagPost from './components/pages/TagPost';
 import User from './components/pages/user'; 
+import MostPopular from './components/pages/most-popular'
 import ImageUpload from './components/ImageUpload'; // Import the ImageUpload component
 import ImgurProvider from "./components/Context/ImgurContext";
 import { Provider } from 'react-redux';
@@ -71,6 +72,7 @@ function App() {
             <Route path='/tagPost/:_id' element={<TagPost />} />
             <Route path='/upload' element={<ImageUpload onUpload={handleUpload} />} /> {/* Add the upload route */}
             <Route path='/user/:username' element={<User />}/>
+            <Route path='/most-popular' element={<MostPopular />} />
           </Routes>
         </BrowserRouter>
       </ImgurProvider>

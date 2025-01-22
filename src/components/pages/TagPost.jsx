@@ -1,86 +1,139 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { FaEye, FaArrowUp } from 'react-icons/fa';
-import { ImArrowDown } from 'react-icons/im';
-import { ImArrowUp } from 'react-icons/im';
-import { BsArrowLeftShort } from 'react-icons/bs';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import { FaEye, FaArrowUp} from 'react-icons/fa';
 import { FaMessage } from "react-icons/fa6";
+import { ImArrowDown, ImArrowUp } from 'react-icons/im';
+import { BsArrowLeftShort } from 'react-icons/bs';
 import { ImgurContext } from '../Context/ImgurContext';
+import { likePost, unlikePost, incrementViewCount, fetchTagPosts } from '../../reducer/actions';
+import { toast, ToastContainer } from 'react-toastify';
+import { RotatingLines } from 'react-loader-spinner';
 
 function TagPost() {
   const { _id } = useParams();
-  const [posts, setPosts] = useState([]);
-  const [tagName, setTagName] = useState('');
-  const { LikePost, UnLikePost, scrollToTop, isVisible } = useContext(ImgurContext);
+  const [loading, setLoading] = useState(true);
+  const [tagName, setTagName] = useState(''); // Tag name state
+  const tagPosts = useSelector((state) => state.tagPosts);  // Use tagPosts from Redux state
+  const dispatch = useDispatch();
+  const { userID, LikePost, UnLikePost, scrollToTop, isVisible } = useContext(ImgurContext);
+  const [viewCount, setViewCount] = useState(0);
 
   useEffect(() => {
-    fetchPostsByTag(_id);
-  }, [_id]);
+    const fetchData = async () => {
+      try {
+        const response = await dispatch(fetchTagPosts(_id));  // Dispatch to fetch posts for the tag
+        // console.log("API Response: ", response); // Check if the data is correct
+  
+        if (response && response.title) {
+          setTagName(response.title); // Set the tag name
+        } else {
+          toast.error("No posts found for this tag.");
+        }
+      } catch (error) {
+        toast.error("Error fetching posts.");
+      } finally {
+        setLoading(false); // Turn off the loader after data is fetched
+      }
+    };
+  
+    fetchData();
+  }, [_id, dispatch]);
+  
 
-  const fetchPostsByTag = async (_id) => {
+  const truncateText = (text, maxLength = 88) => {
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  };
+
+  const handleImageClick = async (_id) => {
     try {
-      const response = await fetch(`https://imgurif-api.onrender.com/api/tag/${_id}`);
-      const data = await response.json();
-      setPosts(data.post);
-      console.log(data.post)
-      setTagName(data.title);
+      const response = await dispatch(incrementViewCount(_id, userID)); // Increment view count
+      if (response && response.viewCount) {
+        setViewCount(response.viewCount); // Update view count on success
+      }
     } catch (error) {
-      console.error('Error fetching posts by tag:', error);
+      toast.error("Error incrementing view count.");
     }
+  };
+
+  const handleLikeClick = (postId) => {
+    dispatch(likePost(postId, userID, false, true));
+  };
+
+  const handleUnlikeClick = (postId) => {
+    dispatch(unlikePost(postId, userID, false, true));
   };
 
   return (
     <div>
-      <div className="tag-section" >
+      <div className="tag-section">
         <div className="back pt-3 pb-3">
           <Link to="/" className="td">
             <BsArrowLeftShort /> back to Imgur
           </Link>
         </div>
-        <h2>{posts.name}</h2>
-        <p className='text-center text-white cover-name'>{tagName} </p>
-        <p className='text-center text-white cover-stats pb-5'>{posts.length} POSTS</p>
+        {/* Display tag name */}
+        <h2>{tagName}</h2>
+        <p className="text-center text-white cover-name">{tagName}</p>
+        {/* Uncommented the post count */}
+        <p className="text-center text-white cover-stats pb-5">{tagPosts.length} POSTS</p>
       </div>
-      <div className='post-bk pt-4'>
-        <div className='container'>
-
-          <div className="row ">
-            {posts.map((post) => (
-              <div key={post._id} className={`post-item col-lg-4 col-md-6 mb-3 ${post._id}`}>
-                <div className="bg-successes bg-height p-3">
-                  <div className="post-title pb-3 text-white">{post.title}</div>
-                </div>
-                <Link to={`/postDetails/${post._id}`} className="post-link">
-                  <img src={post.image} className="img-fluid d-block w-100" alt="Post Image" />
-                </Link>
-                <div className="bg-successes p-3">
-                  <div className="post-description pb-3 text-white">{post.description}</div>
-                </div>
-                <div className="icons d-flex justify-content-between text-white pt-5 bg-successes p-3">
-                  <div className="like-buttons">
-                    <ImArrowUp className="like-button" onClick={() => LikePost(post._id)} />
-                    {/* Access likeCount from the context directly in JSX */}
-                    <span className="like-count p-2">{post.likes.length}</span>
-                    <ImArrowDown className="like-button" onClick={() => UnLikePost(post._id)} />
+      <div className="post-bk pt-4">
+        <div className="container mt-5">
+          {loading ? (
+            <div className="loader text-center">
+              <RotatingLines width="50" />
+            </div>
+          ) : (
+            <div className="posts-container row mt-3">
+              {tagPosts.length > 0 ? (
+                tagPosts.map((post) => (
+                  <div key={post._id} className="post-item col-lg-4 col-md-6 mb-3">
+                    <Link
+                      to={`/postDetails/${post._id}`}
+                      className="post-link"
+                      onClick={() => handleImageClick(post._id)}
+                    >
+                      <img
+                        src={post.image}
+                        className="img-fluid d-block w-100"
+                        alt={post.title || 'Post'}
+                        loading="lazy"
+                      />
+                    </Link>
+                    <div className="bg-successes p-3">
+                      <div className="post-description pb-3 text-white">
+                        {truncateText(post.description)}
+                      </div>
+                    </div>
+                    <div className="icons d-flex justify-content-between text-white bg-success p-3">
+                      <div className="like-buttons">
+                        <ImArrowUp className="like-button" onClick={() => handleLikeClick(post._id)} />
+                        <span className="like-count p-2">{post.likes.length}</span>
+                        <ImArrowDown className="like-button" onClick={() => handleUnlikeClick(post._id)} />
+                      </div>
+                      <div className="comment-icon">
+                        <FaMessage className="me-2" />
+                        {post.comments.length}
+                      </div>
+                      <div className="view-icon">
+                        <FaEye className="me-2" />
+                        {post.views}
+                      </div>
+                    </div>
                   </div>
-                  <div className="comment-icon">
-                    <FaMessage className="me-2" />
-                    {post.comments.length}
-                  </div>
-                  <div className="view-icon">
-                    <FaEye className="me-2" />
-                    {post.views}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                ))
+              ) : (
+                <p className="text-white text-center">No tag posts available.</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <div className="back-to-top" onClick={scrollToTop} style={{ display: isVisible ? 'block' : 'none' }}>
-        <FaArrowUp className='FaArrowUp' />
+        <FaArrowUp className="FaArrowUp" />
       </div>
+      <ToastContainer />
     </div>
   );
 }

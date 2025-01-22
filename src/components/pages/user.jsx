@@ -20,7 +20,7 @@ import dawww from '../../images/dawww.png';
 import oc from '../../images/oc.png';
 import gone_mobile from '../../images/gone_mobile.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { likePost, unlikePost } from '../../reducer/actions';
+import { likePost, unlikePost, fetchPosts, incrementViewCount } from '../../reducer/actions';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Make sure to import the CSS
 
@@ -56,6 +56,21 @@ const UserProfile = () => {
 
         fetchUser();
     }, [username]);
+
+    useEffect(() => {
+        // Fetch posts and set loading to false once done
+        const fetchData = async () => {
+            try {
+                await dispatch(fetchPosts());
+            } catch (error) {
+                toast.error("Error fetching posts.");
+            } finally {
+                setLoading(false); // Turn off loader
+            }
+        };
+
+        fetchData();
+    }, [dispatch]);
 
     useEffect(() => {
         if (selectedTab === "posts") {
@@ -140,26 +155,23 @@ const UserProfile = () => {
         setSelectedTab(tab);
     };
 
-    const handleImageClick = (_id) => {
-        handleView(_id).then((data) => {
-            setViewCount(data.viewCount);
-        });
+    const handleImageClick = async (_id) => {
+        try {
+            const response = await dispatch(incrementViewCount(_id, userID)); // Dispatch the incrementViewCount action
+            if (response && response.viewCount) {
+                setViewCount(response.viewCount); // Update view count on success
+            }
+        } catch (error) {
+            toast.error("Error incrementing view count.");
+        }
     };
 
-    const handleLikeClick = (postId) => {
-        dispatch(likePost(postId, userID)).then((response) => {
-            if (response && response.viewCount !== undefined) {
-                setViewCount(response.viewCount);
-            }
-        });
+     const handleLikeClick = (postId) => {
+        dispatch(likePost(postId, userID));
     };
 
     const handleUnlikeClick = (postId) => {
-        dispatch(unlikePost(postId, userID)).then((response) => {
-            if (response && response.viewCount !== undefined) {
-                setViewCount(response.viewCount);
-            }
-        });
+        dispatch(unlikePost(postId, userID));
     };
 
     if (loading) {

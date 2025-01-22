@@ -59,21 +59,6 @@ function PostsSection() {
         dispatch(unlikePost(postId, userID));
     };
 
-     // Display loader if still loading
-     if (loading) {
-        return (
-            <div className="loader-container text-center mt-5">
-                <RotatingLines
-                    strokeColor="grey"
-                    strokeWidth="5"
-                    animationDuration="0.75"
-                    width="50"
-                    visible={true}
-                />
-            </div>
-        );
-    }
-
     return (
         <div className="row mt-3">
             {reduxPosts.map((data) => (

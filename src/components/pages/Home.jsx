@@ -10,8 +10,8 @@ function Home({ uploadedImageUrl }) {
     return (
         <div className="homepage">
             <div className='social-nav'>
-            <SocialNav />
-            <DisplayText/>
+                <SocialNav />
+                <DisplayText />
             </div>
             <Post />
             {uploadedImageUrl && <img src={uploadedImageUrl} alt="Uploaded" />}

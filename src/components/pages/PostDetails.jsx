@@ -351,42 +351,6 @@ function PostDetails({ uploadedImageUrl }) {
                 </Col>
             </Row>
 
-            <div className='bg-dark'>
-                <div className='container  mt-5'>
-                    <div><p className='text-white text-center pt-3'>EXPLORE POSTS</p></div>
-                    <div className="row mt-3">
-                        {posts.map((data) => (
-                            <div key={data._id} className={`post-item col-lg-4 col-md-6 mb-3 ${data._id}`}>
-                                <div className="bg-successes bg-height p-3">
-                                    <div className="post-title pb-3 text-white">{data.title}</div>
-                                </div>
-                                <Link to={``} className="post-link">
-                                    <img src={data.image} className="img-fluid d-block w-100" alt="Post Image" />
-                                </Link>
-                                <div className="bg-successes p-3">
-                                    <div className="post-description pb-3 text-white">{data.description}</div>
-                                    <div className="icons d-flex justify-content-between text-white pt-3">
-                                        <div className="like-buttons">
-                                            <ImArrowUp className="like-button" onClick={() => LikePost(data._id)} />
-                                            <span className="like-count p-2">{data.likes.length}</span>
-                                            <ImArrowDown className="like-button" onClick={() => UnLikePost(data._id)} />
-                                        </div>
-                                        <div className="comment-icon">
-                                            <FaMessage className="me-2" />
-                                            {post.comments.length}
-                                        </div>
-                                        <div className="view-icon">
-                                            <FaEye className="me-2" />
-                                            {post.views}
-                                        </div>
-                                    </div>
-                                </div>
-                                <ToastContainer />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
             <div className="back-to-top" onClick={scrollToTop} style={{ display: isVisible ? 'block' : 'none' }}>
                 <FaArrowUp className='FaArrowUp' />
             </div>

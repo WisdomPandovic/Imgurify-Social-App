@@ -318,6 +318,7 @@ function NewPosts() {
   const [selectedTag, setSelectedTag] = useState('');
   const [newTag, setNewTag] = useState('');
   const [tags, setTags] = useState([]);
+  const [isMature, setIsMature] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
   const [imageURL, setImageURL] = useState('');
@@ -424,6 +425,7 @@ function NewPosts() {
           formData.append('tag', tagData.name);
           formData.append('imagepath', downloadURL);
           formData.append('user', userID);
+          formData.append('isMature', isMature);
 
           const response = await fetch('https://imgurif-api.onrender.com/api/post', {
             method: 'POST',
@@ -438,6 +440,7 @@ function NewPosts() {
             setNewTag('');
             setImageFile(null);
             setImagePreview('');
+            setIsMature(false);
           } else {
             toast.error('Failed to create post');
           }
@@ -539,9 +542,16 @@ function NewPosts() {
                         Grab Link
                       </button>
                     </div>
-                    <p className="pt-3" style={{ color: '#585d6a', fontSize: "13px" }}>
+                    <p className="pt-3" style={{ color: '#b4b9c2', fontSize: "13px" }}>
                       Your post is currently <span className="text-success">Hidden</span>
                     </p>
+
+                    <div className='pb-1' style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <input type="checkbox" id="mature" name="mature" checked={isMature} onChange={() => setIsMature(!isMature)} />
+                      <label htmlFor="mature" style={{ color: '#b4b9c2', fontSize: '13px', margin: 0 }}>
+                        Mature (?)
+                      </label>
+                    </div>
 
                     <div className="form-group text-white">
                       <label htmlFor="selectedTag" className="mb-1">Tags</label>
@@ -550,7 +560,8 @@ function NewPosts() {
                         id="selectedTag"
                         name="selectedTag"
                         value={selectedTag}
-                        onChange={handleInputChange}                       
+                        onChange={handleInputChange}
+                        style={{ fontSize: '12px' }}
                       >
                         <option value="" disabled>
                           Select or Create Tag
@@ -563,7 +574,7 @@ function NewPosts() {
                         <option value="new">Create New Tag</option>
                       </select>
                       {selectedTag === 'new' && (
-                        <div className="mt-2">
+                        <div className="mt-2 mb-5">
                           <input
                             type="text"
                             className="form-control tags"
@@ -581,11 +592,10 @@ function NewPosts() {
                 </div>
                 <ToastContainer />
               </form>
-
             </div>
           </div>
         </div>
-        <div className="container card-footer text-center bg-light mt-4">
+        <div className="container d-flex justify-content-center flex-column card-footer text-center bg-light mt-5" style={{ position: 'absolute', bottom: 0, width: '100%' }}>
           <small className="text-muted">Make sure to review your post before submitting.</small>
         </div>
       </div>
