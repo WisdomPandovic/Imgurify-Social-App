@@ -125,20 +125,39 @@ function PostDetails({ uploadedImageUrl }) {
 
     const handleNextPost = () => {
         if (currentIndex < posts.length - 1) {
-            setCurrentIndex(currentIndex + 1);
-            navigate(`/postDetails/${posts[currentIndex + 1]._id}`);
+            const nextIndex = currentIndex + 1;
+            const nextPostId = posts[nextIndex]._id;
+    
+            // Log only if the IDs differ
+            if (posts[currentIndex]._id !== nextPostId) {
+                console.log(`Comparing IDs: ${posts[currentIndex]._id} ${nextPostId}`);
+            }
+    
+            setCurrentIndex(nextIndex);
+            navigate(`/postDetails/${nextPostId}`);
         }
     };
-
+    
     const handlePreviousPost = () => {
         if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
-            navigate(`/postDetails/${posts[currentIndex - 1]._id}`);
+            const prevIndex = currentIndex - 1;
+            const prevPostId = posts[prevIndex]._id;
+    
+            // Log only if the IDs differ
+            if (posts[currentIndex]._id !== prevPostId) {
+                console.log(`Comparing IDs: ${posts[currentIndex]._id} ${prevPostId}`);
+            }
+    
+            setCurrentIndex(prevIndex);
+            navigate(`/postDetails/${prevPostId}`);
         }
     };
+    
+    
 
     // Retrieve the current post
     const postt = posts[currentIndex];
+
 
     // POST COMENT
     const [comment, setComment] = useState({
@@ -242,7 +261,7 @@ function PostDetails({ uploadedImageUrl }) {
             </div>
             <Row>
                 <Col lg={3} md={12} sm={12} className="fixed-column order-lg-1 order-md-2 order-sm-2">
-                    {data && <SideCounters data={postt} />}
+                    {data && <SideCounters data={post} />}
                 </Col>
 
                 <Col lg={6} md={12} sm={12} className="center-column pt-5 pb-5 order-lg-2 order-md-1 order-sm-1">

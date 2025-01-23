@@ -39,7 +39,6 @@ function TagPost() {
   
     fetchData();
   }, [_id, dispatch]);
-  
 
   const truncateText = (text, maxLength = 88) => {
     return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;

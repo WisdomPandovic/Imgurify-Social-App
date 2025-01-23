@@ -19,8 +19,27 @@ function SideCounters({ data }) {
     dispatch(fetchPosts()); // Fetch posts on mount
   }, [dispatch]);
 
+  // console.log('Data prop:', data);  // Check if data._id is correct
+
+  
+  // console.log(data?._id)
+
   // Find the specific post data using the post ID
+  // console.log("Posts Array:", posts); // Log posts array before you search
   const post = posts.find(post => post._id === data?._id);
+  // console.log("Selected Post:", post); // Log the selected post
+  
+
+  console.log('Comparing IDs:', data._id, posts[0]?._id);
+
+
+//   console.log(data?._id); // The post ID clicked
+// console.log(posts.map(post => post._id)); // Log all post IDs to check the values
+
+
+  // console.log("Redux posts:", posts);
+  // console.log("Post data:", post);
+
 
   const handleLikeClick = (postId) => {
     dispatch(likePost(postId, userID));
@@ -57,9 +76,9 @@ function SideCounters({ data }) {
     <Container fluid className="mt-3">
       <section id="like-section" className="d-flex flex-column justify-content-center align-items-center">
         <Container className="sidecounter mt-5 pb-3 pt-3">
-          <TbArrowBigUp className='text-white iconz' onClick={() => handleLikeClick(data._id)} />
+          <TbArrowBigUp className='text-white iconz' onClick={() => handleLikeClick(post._id)} />
           <span className="d-block text-white">{post?.likes?.length || 0}</span>
-          <TbArrowBigDown className='text-white iconz' onClick={() => handleUnlikeClick(data._id)} />
+          <TbArrowBigDown className='text-white iconz' onClick={() => handleUnlikeClick(post._id)} />
           <div className="heart-icon text-white">
             <AiOutlineHeart />
           </div>
