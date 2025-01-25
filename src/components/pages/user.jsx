@@ -20,13 +20,15 @@ import dawww from '../../images/dawww.png';
 import oc from '../../images/oc.png';
 import gone_mobile from '../../images/gone_mobile.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { likePost, unlikePost, fetchPosts, incrementViewCount } from '../../reducer/actions';
+import { likePost, unlikePost, fetchPosts, incrementViewCount, fetchUserPosts } from '../../reducer/actions';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Make sure to import the CSS
 
 const UserProfile = () => {
     const dispatch = useDispatch();
     const { handleView, userID } = useContext(ImgurContext);
+    const userPosts = useSelector((state) => state.userPosts);
+    console.log('Redux state userPosts:', userPosts);
     const [viewCount, setViewCount] = useState(0);
     const { username } = useParams();
     const [user, setUser] = useState(null);
@@ -47,8 +49,8 @@ const UserProfile = () => {
                 const response = await axios.get(`https://imgurif-api.onrender.com/api/user-by-username/${username}`);
                 setUser(response.data);
                 setFollowers(response.data.followers.length);
-            } catch (err) {
-                console.error('Error fetching user:', err);
+            } catch (error) {
+                console.error('Error fetching user:', error);
             } finally {
                 setLoading(false);
             }
@@ -57,38 +59,54 @@ const UserProfile = () => {
         fetchUser();
     }, [username]);
 
-    useEffect(() => {
-        // Fetch posts and set loading to false once done
-        const fetchData = async () => {
-            try {
-                await dispatch(fetchPosts());
-            } catch (error) {
-                toast.error("Error fetching posts.");
-            } finally {
-                setLoading(false); // Turn off loader
-            }
-        };
+    // useEffect(() => {
+    //     // Fetch posts and set loading to false once done
+    //     const fetchData = async () => {
+    //         try {
+    //             await dispatch(fetchPosts());
+    //         } catch (error) {
+    //             toast.error("Error fetching posts.");
+    //         } finally {
+    //             setLoading(false); // Turn off loader
+    //         }
+    //     };
 
-        fetchData();
-    }, [dispatch]);
+    //     fetchData();
+    // }, [dispatch]);
+
+    useEffect(() => {
+        const loadUserPosts = async () => {
+          try {
+            const response = await dispatch(fetchUserPosts(username));  // Dispatch to fetch posts for the user
+            console.log("API Response: ", response); // Check if the data is correct
+
+          } catch (error) {
+            toast.error("Error fetching posts.");
+          } finally {
+            setLoading(false); // Turn off the loader after data is fetched
+          }
+        };
+      
+        loadUserPosts();
+      }, [username, dispatch]);
 
     useEffect(() => {
         if (selectedTab === "posts") {
-            fetchPosts();
+            fetchUserPosts();
         }
     }, [selectedTab]);
 
-    const fetchPosts = async () => {
-        setPostsLoading(true);
-        try {
-            const response = await axios.get(`https://imgurif-api.onrender.com/api/user/${username}/posts`);
-            setPosts(response.data);
-        } catch (err) {
-            console.error('Error fetching posts:', err);
-        } finally {
-            setPostsLoading(false);
-        }
-    };
+    // const fetchPosts = async () => {
+    //     setPostsLoading(true);
+    //     try {
+    //         const response = await axios.get(`https://imgurif-api.onrender.com/api/user/${username}/posts`);
+    //         setPosts(response.data);
+    //     } catch (err) {
+    //         console.error('Error fetching posts:', err);
+    //     } finally {
+    //         setPostsLoading(false);
+    //     }
+    // };
 
     useEffect(() => {
         if (selectedTab === "mycomment") {
@@ -166,22 +184,22 @@ const UserProfile = () => {
         }
     };
 
-     const handleLikeClick = (postId) => {
-        dispatch(likePost(postId, userID));
-    };
+    const handleLikeClick = (postId) => {
+        dispatch(likePost(postId, userID, false, false, true)); // Set isUserPost = true
+    };    
 
     const handleUnlikeClick = (postId) => {
-        dispatch(unlikePost(postId, userID));
+        dispatch(unlikePost(postId, userID, false, false, true));
     };
 
     if (loading) {
         return (
-            <div className="loader-container d-flex justify-content-center text-center">
+            <div className="loader-container d-flex justify-content-center text-center align-items-center" style={{ height: "50vh" }}>
                 <RotatingLines
-                    strokeColor="grey"
+                    strokeColor="green"
                     strokeWidth="5"
                     animationDuration="0.75"
-                    width="50"
+                    width="80"
                     visible={true}
                 />
             </div>
@@ -191,7 +209,9 @@ const UserProfile = () => {
     if (!user) {
         return <div>User not found</div>;
     }
-
+    console.log("User posts:", userPosts);
+    console.log("User:", user);
+    
     return (
         <Container fluid className="mt-3 profile-background">
             <SocialNav />
@@ -214,7 +234,7 @@ const UserProfile = () => {
                             <p onClick={handleFollow} style={{ cursor: 'pointer' }}>
                                 <FaPlusCircle /> {isFollowing ? "Following" : "Follow"}
                             </p>
-                            <p>
+                            <p style={{ cursor: 'pointer' }}>
                                 <FaMessage /> Chat
                             </p>
                         </div>
@@ -284,20 +304,20 @@ const UserProfile = () => {
                                     visible={true}
                                 />
                             </div>
-                        ) : posts.length > 0 ? (
-                            <div className="row">
-                                {posts.map((post) => (
+                        ) : userPosts.length > 0 ? (
+                            <div className="row" style={{ marginLeft: 0, marginRight: 0 }}>
+                                {userPosts.map((post) => (
                                     <div key={post._id} className={`post-item col-lg-4 col-md-6 mb-3 ${post._id}`}>
-                                        <div className="bg-successes bg-height p-3">
+                                        {/* <div className="bg-successes bg-height p-3">
                                             <div className="post-title pb-3 text-white">{post.title}</div>
-                                        </div>
+                                        </div> */}
                                         <Link to={`/postDetails/${post._id}`} className="post-link" onClick={() => handleImageClick(post._id)}>
-                                            <img src={post.image} className="img-fluid d-block w-100" alt="Post Image" />
+                                            <img src={post.image} className="img-fluid d-block w-100" alt="Post Image" style={{ borderRadius: "3px 3px 0 0" }} />
                                         </Link>
                                         <div className="bg-successes p-3">
                                             <div className="post-description pb-3 text-white">{truncateText(post.description)}</div>
                                         </div>
-                                        <div className="icons d-flex justify-content-between text-white bg-successes p-3">
+                                        <div className="icons d-flex justify-content-between text-white bg-successes p-3" style={{ borderRadius: "0 0 5px 5px" }}>
                                             <div className="like-buttons">
                                                 <ImArrowUp className="like-button" onClick={() => handleLikeClick(post._id)} />
                                                 <span className="like-count p-2">{post.likes.length}</span>

@@ -60,41 +60,60 @@ function PostsSection() {
     };
 
     return (
-        <div className="row mt-3">
-            {reduxPosts.map((data) => (
-                !data.hidden && (
-                    <div key={data._id} className="post-item col-lg-4 col-md-6 mb-3">
-                        {/* <div className="bg-successes p-3">
-                            <div className="post-title pb-3 text-white">{data.title}</div>
-                        </div> */}
-                        <Link
-                            to={`postDetails/${data._id}`}
-                            className="post-link"
-                            onClick={() => handleImageClick(data._id)}
+        <div className="row mt-3" style={{ marginLeft: 0, marginRight: 0 }}>
+            {loading ? (
+                <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+                    <RotatingLines
+                        strokeColor="green"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        width="96"
+                        visible={true}
+                    />
+                </div>
+            ) : (
+                reduxPosts.map((data) => (
+                    !data.hidden && (
+                        <div
+                            key={data._id}
+                            className="post-item col-lg-4 col-md-6 mb-3"
                         >
-                            <img src={data.image} className="img-fluid d-block w-100" alt="Post" />
-                        </Link>
-                        <div className="bg-successes p-3">
-                            <div className="post-description pb-3 text-white">{truncateText(data.description)}</div>
+                            <Link
+                                to={`postDetails/${data._id}`}
+                                className="post-link"
+                                onClick={() => handleImageClick(data._id)}
+                            >
+                                <img
+                                    src={data.image}
+                                    className="img-fluid d-block w-100"
+                                    alt="Post"
+                                    style={{ borderRadius: "3px 3px 0 0" }}
+                                />
+                            </Link>
+                            <div className="bg-successes p-3">
+                                <div className="post-description pb-3 text-white">
+                                    {truncateText(data.description)}
+                                </div>
+                            </div>
+                            <div className="icons d-flex justify-content-between text-white bg-success p-3" style={{ borderRadius: "0 0 5px 5px" }}>
+                                <div className="like-buttons">
+                                    <ImArrowUp className="like-button" onClick={() => handleLikeClick(data._id)} />
+                                    <span className="like-count p-2">{data.likes.length}</span>
+                                    <ImArrowDown className="like-button" onClick={() => handleUnlikeClick(data._id)} />
+                                </div>
+                                <div className="comment-icon">
+                                    <FaMessage className="me-2" />
+                                    {data.comments.length}
+                                </div>
+                                <div className="view-icon">
+                                    <FaEye className="me-2" />
+                                    {data.views}
+                                </div>
+                            </div>
                         </div>
-                        <div className="icons d-flex justify-content-between text-white bg-success p-3">
-                            <div className="like-buttons">
-                                <ImArrowUp className="like-button" onClick={() => handleLikeClick(data._id)} />
-                                <span className="like-count p-2">{data.likes.length}</span>
-                                <ImArrowDown className="like-button" onClick={() => handleUnlikeClick(data._id)} />
-                            </div>
-                            <div className="comment-icon">
-                                <FaMessage className="me-2" />
-                                {data.comments.length}
-                            </div>
-                            <div className="view-icon">
-                                <FaEye className="me-2" />
-                                {data.views}
-                            </div>
-                        </div>
-                    </div>
-                )
-            ))}
+                    )
+                ))
+            )}
             <ToastContainer />
         </div>
     );

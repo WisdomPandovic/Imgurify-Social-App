@@ -153,11 +153,8 @@ function PostDetails({ uploadedImageUrl }) {
         }
     };
     
-    
-
     // Retrieve the current post
     const postt = posts[currentIndex];
-
 
     // POST COMENT
     const [comment, setComment] = useState({
@@ -240,12 +237,12 @@ function PostDetails({ uploadedImageUrl }) {
     // Return loading or error message if post is null
     if (loading) {
         return (
-            <div className="loader-container text-center">
+            <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
                 <RotatingLines
-                    strokeColor="grey"
+                    strokeColor="green"
                     strokeWidth="5"
                     animationDuration="0.75"
-                    width="50"
+                    width="90"
                     visible={true}
                 />
             </div>

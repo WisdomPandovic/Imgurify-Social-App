@@ -84,7 +84,7 @@ function TagPost() {
               <RotatingLines width="50" />
             </div>
           ) : (
-            <div className="posts-container row mt-3">
+            <div className="posts-container row mt-3" style={{ marginLeft: 0, marginRight: 0 }}>
               {tagPosts.length > 0 ? (
                 tagPosts.map((post) => (
                   <div key={post._id} className="post-item col-lg-4 col-md-6 mb-3">
@@ -98,6 +98,7 @@ function TagPost() {
                         className="img-fluid d-block w-100"
                         alt={post.title || 'Post'}
                         loading="lazy"
+                        style={{ borderRadius: "3px 3px 0 0" }}
                       />
                     </Link>
                     <div className="bg-successes p-3">
@@ -105,7 +106,7 @@ function TagPost() {
                         {truncateText(post.description)}
                       </div>
                     </div>
-                    <div className="icons d-flex justify-content-between text-white bg-success p-3">
+                    <div className="icons d-flex justify-content-between text-white bg-success p-3" style={{ borderRadius: "0 0 5px 5px" }}>
                       <div className="like-buttons">
                         <ImArrowUp className="like-button" onClick={() => handleLikeClick(post._id)} />
                         <span className="like-count p-2">{post.likes.length}</span>

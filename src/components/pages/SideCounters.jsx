@@ -30,16 +30,7 @@ function SideCounters({ data }) {
   // console.log("Selected Post:", post); // Log the selected post
   
 
-  console.log('Comparing IDs:', data._id, posts[0]?._id);
-
-
-//   console.log(data?._id); // The post ID clicked
-// console.log(posts.map(post => post._id)); // Log all post IDs to check the values
-
-
-  // console.log("Redux posts:", posts);
-  // console.log("Post data:", post);
-
+  // console.log('Comparing IDs:', data._id, posts[0]?._id);
 
   const handleLikeClick = (postId) => {
     dispatch(likePost(postId, userID));

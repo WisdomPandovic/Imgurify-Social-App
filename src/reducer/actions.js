@@ -8,6 +8,7 @@ export const UNLIKE_POST = 'UNLIKE_POST';
 export const UPDATE_VIEW_COUNT = 'UPDATE_VIEW_COUNT';
 export const SET_POPULAR_POSTS = 'SET_POPULAR_POSTS';
 export const SET_TAG_POSTS = 'SET_TAG_POSTS';
+export const SET_USER_POSTS = 'SET__USER_POSTS';
 
 // Action creator to set posts in Redux state
 export const setPosts = (posts) => ({
@@ -22,6 +23,11 @@ export const setPopularPosts = (posts) => ({
 
 export const setTagPosts = (posts) => ({
     type: SET_TAG_POSTS,
+    payload: posts,
+});
+
+export const setUserPosts = (posts) => ({
+    type: SET_USER_POSTS,
     payload: posts,
 });
 
@@ -81,7 +87,23 @@ export const fetchTagPosts = (_id) => async (dispatch) => {
     }
 };
 
+export const fetchUserPosts = (username) => async (dispatch) => {
+    try {
+        const response = await fetch(`https://imgurif-api.onrender.com/api/user/${username}/posts`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch user posts');
+        }
 
+        const posts = await response.json();
+        console.log('Fetched Posts:', posts); // Log fetched posts
+
+        dispatch({ type: 'SET_USER_POSTS', payload: posts });
+        console.log('Dispatched SET_USER_POSTS'); // Log action dispatch
+    } catch (error) {
+        console.error('Error fetching user posts:', error);
+        dispatch({ type: 'SET_ERROR', payload: error.message });
+    }
+};
 
 // Update view count action
 export const updateViewCount = (postId, viewCount) => ({
@@ -89,66 +111,18 @@ export const updateViewCount = (postId, viewCount) => ({
     payload: { postId, viewCount },
 });
 
-// Increment view count
-// export const incrementViewCount = (postId, user) => async (dispatch, getState) => {
-//     const currentPosts = getState().posts || [];
-//     const postToUpdate = currentPosts.find(post => post._id === postId);
-
-//     if (!postToUpdate) {
-//         toast.error("Post not found.");
-//         return;
-//     }
-
-//     // Optimistic Update
-//     const updatedPost = {
-//         ...postToUpdate,
-//         views: (postToUpdate.views || 0) + 1
-//     };
-//     dispatch(updateViewCount(postId, updatedPost.views));
-
-//     const userId = user._id || user;
-
-//     if (!userId) {
-//         toast.error("User not found or invalid user data.");
-//         return;
-//     }
-
-//     console.log(`Sending POST request to increment view count for postId: ${postId}, userId: ${userId}`);
-
-//     try {
-//         const response = await fetch(`https://imgurif-api.onrender.com/api/post/${postId}/increment-view`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ userId: userId })
-//         });
-
-//         const responseData = await response.json();
-//         console.log('Response from API:', responseData);
-
-//         if (responseData.viewCount !== undefined) {
-//             console.log('View count updated successfully:', responseData.viewCount);
-//             dispatch(updateViewCount(postId, responseData.viewCount)); // Sync with backend
-//         } else {
-//             throw new Error('Unexpected response');
-//         }
-//     } catch (error) {
-//         toast.error(`Error updating view count: ${error.message}`);
-//         handleErrorResponse(error);
-//     }
-// };
-
 export const incrementViewCount = (postId, user) => async (dispatch, getState) => {
     // Fetch both regular posts and popular posts from the state
     const currentPosts = getState().posts || [];
     const popularPosts = getState().popularPosts || [];
     const tagPosts = getState().tagPosts || [];
+    const userPosts = getState().userPosts || [];
 
     // Find the post in both regular and popular posts
     let postToUpdate = currentPosts.find(post => post._id === postId) ||
         popularPosts.find(post => post._id === postId) ||
-        tagPosts.find(post => post._id === postId)
+        tagPosts.find(post => post._id === postId) ||
+        userPosts.find(post => post._id === postId)
 
     if (!postToUpdate) {
         toast.error("Post not found.");
@@ -161,20 +135,24 @@ export const incrementViewCount = (postId, user) => async (dispatch, getState) =
         views: (postToUpdate.views || 0) + 1
     };
 
-   // Dispatch the view count update for regular posts, popular posts, and tag posts
-if (currentPosts.find(post => post._id === postId)) {
-    // If the post is found in regular posts, update the view count for regular posts
-    dispatch(updateViewCount(postId, updatedPost.views));
-} else if (popularPosts.find(post => post._id === postId)) {
-    // If the post is found in popular posts, update the view count for popular posts
-    dispatch(updateViewCount(postId, updatedPost.views));
-} else if (tagPosts.find(post => post._id === postId)) {
-    // If the post is found in tagPosts, update the view count for tag posts
-    dispatch(updateViewCount(postId, updatedPost.views));
-} else {
-    // If the post isn't found in any of the arrays, handle the case accordingly
-    console.error("Post not found in any category");
-}
+    // Dispatch the view count update for regular posts, popular posts, and tag posts
+    if (currentPosts.find(post => post._id === postId)) {
+        // If the post is found in regular posts, update the view count for regular posts
+        dispatch(updateViewCount(postId, updatedPost.views));
+    } else if (popularPosts.find(post => post._id === postId)) {
+        // If the post is found in popular posts, update the view count for popular posts
+        dispatch(updateViewCount(postId, updatedPost.views));
+    } else if (tagPosts.find(post => post._id === postId)) {
+        // If the post is found in tagPosts, update the view count for tag posts
+        dispatch(updateViewCount(postId, updatedPost.views));
+    } else if (userPosts.find(post => post._id === postId)) {
+        // If the post is found in userPosts, update the view count for user posts
+        dispatch(updateViewCount(postId, updatedPost.views));
+    }
+    else {
+        // If the post isn't found in any of the arrays, handle the case accordingly
+        console.error("Post not found in any category");
+    }
 
     const userId = user._id || user;
 
@@ -214,105 +192,16 @@ if (currentPosts.find(post => post._id === postId)) {
     }
 };
 
-
-
-
 // Optimistic update in the likePost action creator
-
-
-// export const likePost = (postId, user, isPopular = false) => async (dispatch, getState) => {
-//     const state = getState();
-//     const posts = isPopular ? state.popularPosts : state.posts;  // Check if it's a popular post or a regular post
-
-//     const postToUpdate = posts.find(post => post._id === postId);
-
-//     if (!postToUpdate) {
-//         toast.error("Post not found.");
-//         return;
-//     }
-
-//     postToUpdate.likes = postToUpdate.likes || [];
-//     const userId = user._id || user;
-
-//     if (postToUpdate.likes.includes(userId)) {
-//         toast.error("Post already liked.");
-//         return;
-//     }
-
-//     // Optimistic update
-//     const updatedPost = {
-//         ...postToUpdate,
-//         likes: [...postToUpdate.likes, userId]
-//     };
-
-//     if (isPopular) {
-//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for popular posts
-//     } else {
-//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for regular posts
-//     }
-
-//     try {
-//         const response = await fetch(`https://imgurif-api.onrender.com/api/like/${postId}`, {
-//             method: 'PUT',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify({ user: userId })
-//         });
-
-//         const responseData = await response.json();
-
-//         if (responseData.msg === "Post has been liked") {
-//             dispatch({ type: LIKE_POST, payload: responseData.post });
-//             toast.success("Post has been liked.");
-//         } else {
-//             throw new Error("Unexpected response");
-//         }
-//     } catch (error) {
-//         toast.error(`Error liking post: ${error.message}`);
-//     }
-// };
-
-// export const unlikePost = (postId, user, isPopular = false) => async (dispatch, getState) => {
-//     const state = getState();
-//     const posts = isPopular ? state.popularPosts : state.posts;  // Check if it's a popular post or a regular post
-
-//     const userId = user._id || user;
-//     const updatedPosts = posts.map(post =>
-//         post._id === postId
-//             ? { ...post, likes: post.likes.filter(like => like !== userId) }
-//             : post
-//     );
-
-//     if (isPopular) {
-//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
-//     } else {
-//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
-//     }
-
-//     try {
-//         const response = await fetch(`https://imgurif-api.onrender.com/api/unlike/${postId}`, {
-//             method: 'PUT',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify({ user: userId })
-//         });
-
-//         const responseData = await response.json();
-
-//         if (responseData.likes) {
-//             dispatch({ type: UNLIKE_POST, payload: { postId, likes: responseData.likes } });
-//             toast.success("Post has been unliked.");
-//         } else {
-//             throw new Error("Unexpected response");
-//         }
-//     } catch (error) {
-//         toast.error(`Error unliking post: ${error.message}`);
-//     }
-// };
-
-export const likePost = (postId, user, isPopular = false, isTag = false) => async (dispatch, getState) => {
+export const likePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
     const state = getState();
     let posts = isPopular ? state.popularPosts : state.posts;  // Regular or popular posts
     if (isTag) {
         posts = state.tagPosts; // Use tagPosts if it's a tag-related post
+    }
+
+    if (isUserPost) {
+        posts = state.userPosts; // Use tagPosts if it's a tag-related post
     }
 
     const postToUpdate = posts.find(post => post._id === postId);
@@ -341,6 +230,8 @@ export const likePost = (postId, user, isPopular = false, isTag = false) => asyn
         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for popular posts
     } else if (isTag) {
         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for tag posts
+    } else if (isUserPost) {
+        dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for user posts
     } else {
         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for regular posts
     }
@@ -365,11 +256,16 @@ export const likePost = (postId, user, isPopular = false, isTag = false) => asyn
     }
 };
 
-export const unlikePost = (postId, user, isPopular = false, isTag = false) => async (dispatch, getState) => {
+export const unlikePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
     const state = getState();
     let posts = isPopular ? state.popularPosts : state.posts;  // Regular or popular posts
     if (isTag) {
         posts = state.tagPosts; // Use tagPosts if it's a tag-related post
+    }
+
+    if (isUserPost) {
+        posts = state.userPosts; // Use userPosts if it's a user-related post
+        console.log("User posts:", posts);
     }
 
     const userId = user._id || user;
@@ -384,7 +280,10 @@ export const unlikePost = (postId, user, isPopular = false, isTag = false) => as
         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
     } else if (isTag) {
         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
-    } else {
+    } else if (isUserPost) {
+        dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+    }
+     else {
         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
     }
 
