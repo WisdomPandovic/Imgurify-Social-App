@@ -392,8 +392,8 @@ function NewPosts() {
         'state_changed',
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ${progress}% done`);
-          toast.info(`Uploading image: ${Math.round(progress)}%`);
+          // console.log(`Upload is ${progress}% done`);
+          // toast.info(`Uploading image: ${Math.round(progress)}%`);
         },
         (error) => {
           console.error('Error uploading file:', error);

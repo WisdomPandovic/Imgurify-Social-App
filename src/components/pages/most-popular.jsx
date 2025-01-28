@@ -50,7 +50,7 @@ function PopularPosts() {
 
     const handleLikeClick = (postId) => {
         dispatch(likePost(postId, userID, true));
-        console.log('Liking post:', postId);
+        // console.log('Liking post:', postId);
     };
 
     const handleUnlikeClick = (postId) => {

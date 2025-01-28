@@ -7,8 +7,8 @@ const DisplayText = () => {
     const [displayText, setDisplayText] = useState('');
 
     const updateText = () => {
-        console.log(`Current Index: ${currentIndex}`); // Log the current index
-        console.log(`Displaying Text: ${data[currentIndex]}`); // Log the text being displayed
+        // console.log(`Current Index: ${currentIndex}`); // Log the current index
+        // console.log(`Displaying Text: ${data[currentIndex]}`); // Log the text being displayed
 
         // Set the current text to display
         setDisplayText(data[currentIndex]);
