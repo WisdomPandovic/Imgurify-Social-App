@@ -11,6 +11,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { handleErrorResponse, notifySuccess } from "../../utils/helpers";
 
 function SignUp(){
     const navigate = useNavigate();
@@ -30,15 +31,16 @@ function SignUp(){
             email: user.email,
             password: user.password,
         };
-        console.log(userData)
+        // console.log(userData)
 
         if ( user.username ==="" || user.email ==="" || user.password ==="" || user.phoneNumber ==="" ){
           setErr(true);
         }else {
             setErr(false);
             axios.post("https://imgurif-api.onrender.com/api/users", userData)
+            // axios.post("http://localhost:3007/api/users", userData)
             .then((resp) => {
-                console.log(resp.data)
+                // console.log(resp.data)
                 setErr(false);
                 toast.success("Sign up successful.");
                 navigate("/signin");
@@ -46,6 +48,7 @@ function SignUp(){
             })
             .catch((error) => {
                 console.error(error);
+                handleErrorResponse(error)
                 toast.error("Sign up unsuccessful. Please try again.");
             });   
         }

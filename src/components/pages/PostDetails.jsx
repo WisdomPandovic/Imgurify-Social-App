@@ -23,6 +23,7 @@ import { ImArrowDown } from 'react-icons/im';
 import { ImArrowUp } from 'react-icons/im';
 import SocialNav from "../SocialNav"
 import { FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
+import { handleErrorResponse, notifySuccess } from "../../utils/helpers";
 
 function PostDetails({ uploadedImageUrl }) {
     const { _id } = useParams();
@@ -76,7 +77,7 @@ function PostDetails({ uploadedImageUrl }) {
 
         axios.post(`https://imgurif-api.onrender.com/api/reply/${_id}`, newReply)
             .then((response) => {
-                console.log("Reply submitted:", response.data);
+                // console.log("Reply submitted:", response.data);
                 // Reset the reply state and close the pop-up
                 setReply({
                     text: "",
@@ -87,7 +88,7 @@ function PostDetails({ uploadedImageUrl }) {
             })
             .catch((error) => {
                 console.error("Error submitting reply:", error);
-                toast.error("An error occurred while posting the reply.");
+                handleErrorResponse(error);
             });
     };
 
@@ -183,10 +184,11 @@ function PostDetails({ uploadedImageUrl }) {
             .post(`https://imgurif-api.onrender.com/api/comment/${_id}`, newComment)
             .then((resp) => resp.data)
             .then((data) => {
-                console.log("Response Data:", data);
+                // console.log("Response Data:", data);
                 setComment(data);
             })
             .catch((error) => {
+                handleErrorResponse(error)
                 console.error("Error while submitting comment:", error);
             });
 

@@ -9,6 +9,9 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { likePost, unlikePost, fetchPosts } from '../../reducer/actions';
 import { ImgurContext } from '../Context/ImgurContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function SideCounters({ data }) {
   const dispatch = useDispatch();
@@ -49,12 +52,12 @@ function SideCounters({ data }) {
           text: post.description, // Post description
           url: window.location.href, // Current page URL or post URL
         });
-        console.log("Post shared successfully!");
+        // console.log("Post shared successfully!");
       } catch (error) {
         console.error("Error sharing post:", error);
       }
     } else {
-      alert('Sharing is not supported in this browser');
+      toast.info('Sharing is not supported in this browser');
     }
   };
 
@@ -90,6 +93,7 @@ function SideCounters({ data }) {
           <span className="d-block">{post.comments?.length || 0}</span>
         </Container>
       </section>
+      <ToastContainer />
     </Container>
   );
 }

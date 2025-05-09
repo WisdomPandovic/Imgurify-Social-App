@@ -10,6 +10,7 @@ export const ImgurContext = createContext();
 
 function ImgurProvider(props) {
   const [userID, setUserID] = useState(null);
+  console.log(userID)
   const [likes, setLikes] = useState([]);
   const [dislike, setDislike] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);

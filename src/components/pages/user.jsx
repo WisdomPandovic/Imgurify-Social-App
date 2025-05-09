@@ -28,7 +28,7 @@ const UserProfile = () => {
     const dispatch = useDispatch();
     const { handleView, userID } = useContext(ImgurContext);
     const userPosts = useSelector((state) => state.userPosts);
-    console.log('Redux state userPosts:', userPosts);
+    // console.log('Redux state userPosts:', userPosts);
     const [viewCount, setViewCount] = useState(0);
     const { username } = useParams();
     const [user, setUser] = useState(null);
@@ -51,6 +51,7 @@ const UserProfile = () => {
                 setFollowers(response.data.followers.length);
             } catch (error) {
                 console.error('Error fetching user:', error);
+                handleErrorResponse(error);
             } finally {
                 setLoading(false);
             }
@@ -78,7 +79,7 @@ const UserProfile = () => {
         const loadUserPosts = async () => {
           try {
             const response = await dispatch(fetchUserPosts(username));  // Dispatch to fetch posts for the user
-            console.log("API Response: ", response); // Check if the data is correct
+            // console.log("API Response: ", response); // Check if the data is correct
 
           } catch (error) {
             toast.error("Error fetching posts.");
@@ -118,10 +119,11 @@ const UserProfile = () => {
         setCommentsLoading(true);
         try {
             const response = await axios.get(`https://imgurif-api.onrender.com/api/user/${user._id}/comments-made`);
-            console.log(response.data)
+            // console.log(response.data)
             setComments(response.data); // Store fetched comments in the state
-        } catch (err) {
-            console.error('Error fetching comments:', err);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            handleErrorResponse(error);
         } finally {
             setCommentsLoading(false);
         }
@@ -136,11 +138,12 @@ const UserProfile = () => {
     const fetchPostComments = async () => {
         setCommentsLoading(true);
         try {
-            const response = await axios.get(`https://imgurif-api.onrender.com/api/user/${userID}/comments-on-posts`);
-            console.log(response.data)
+            const response = await axios.get(`https://imgurif-api.onrender.com/api/user/${user._id}/comments-on-posts`);
+            // console.log(response.data)
             setPostComments(response.data); // Store fetched comments in the state
-        } catch (err) {
-            console.error('Error fetching comments:', err);
+        } catch (error) {
+            console.error('Error fetching comments:',error);
+            handleErrorResponse(error);
         } finally {
             setPostCommentsLoading(false);
         }
@@ -209,8 +212,8 @@ const UserProfile = () => {
     if (!user) {
         return <div>User not found</div>;
     }
-    console.log("User posts:", userPosts);
-    console.log("User:", user);
+    // console.log("User posts:", userPosts);
+    // console.log("User:", user);
     
     return (
         <Container fluid className="mt-3 profile-background">

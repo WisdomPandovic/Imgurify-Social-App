@@ -193,78 +193,15 @@ export const incrementViewCount = (postId, user) => async (dispatch, getState) =
 };
 
 // Optimistic update in the likePost action creator
-// export const likePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
-//     const state = getState();
-//     let posts = isPopular ? state.popularPosts : state.posts;  // Regular or popular posts
-//     if (isTag) {
-//         posts = state.tagPosts; // Use tagPosts if it's a tag-related post
-//     }
-
-//     if (isUserPost) {
-//         posts = state.userPosts; // Use tagPosts if it's a tag-related post
-//     }
-
-//     const postToUpdate = posts.find(post => post._id === postId);
-
-//     if (!postToUpdate) {
-//         toast.error("Post not found.");
-//         return;
-//     }
-
-//     postToUpdate.likes = postToUpdate.likes || [];
-//     const userId = user._id || user;
-
-//     if (postToUpdate.likes.includes(userId)) {
-//         toast.info("Post already liked.");
-//         return;
-//     }
-
-//     // Optimistic update
-//     const updatedPost = {
-//         ...postToUpdate,
-//         likes: [...postToUpdate.likes, userId]
-//     };
-
-//     // Dispatch action based on the post type
-//     if (isPopular) {
-//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for popular posts
-//     } else if (isTag) {
-//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for tag posts
-//     } else if (isUserPost) {
-//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for user posts
-//     } else {
-//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for regular posts
-//     }
-
-//     try {
-//         const response = await fetch(`https://imgurif-api.onrender.com/api/like/${postId}`, {
-//             method: 'PUT',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify({ user: userId })
-//         });
-
-//         const responseData = await response.json();
-
-//         if (responseData.msg === "Post has been liked") {
-//             dispatch({ type: LIKE_POST, payload: responseData.post });
-//             toast.success("Post has been liked.");
-//         } else {
-//             throw new Error("Unexpected response");
-//         }
-//     } catch (error) {
-//         toast.error(`Error liking post: ${error.message}`);
-//     }
-// };
-
 export const likePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
     const state = getState();
-    let posts = isPopular ? state.popularPosts : state.posts; // Regular or popular posts
+    let posts = isPopular ? state.popularPosts : state.posts;  // Regular or popular posts
     if (isTag) {
         posts = state.tagPosts; // Use tagPosts if it's a tag-related post
     }
 
     if (isUserPost) {
-        posts = state.userPosts; // Use userPosts if it's a user-related post
+        posts = state.userPosts; // Use tagPosts if it's a tag-related post
     }
 
     const postToUpdate = posts.find(post => post._id === postId);
@@ -275,13 +212,7 @@ export const likePost = (postId, user, isPopular = false, isTag = false, isUserP
     }
 
     postToUpdate.likes = postToUpdate.likes || [];
-
-    // Validate user and userId
-    if (!user || !user._id) {
-        toast.error("You need to sign in to like a post.");
-        return;
-    }
-    const userId = user._id;
+    const userId = user._id || user;
 
     if (postToUpdate.likes.includes(userId)) {
         toast.info("Post already liked.");
@@ -325,39 +256,58 @@ export const likePost = (postId, user, isPopular = false, isTag = false, isUserP
     }
 };
 
-// export const unlikePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
+// export const likePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
 //     const state = getState();
-//     let posts = isPopular ? state.popularPosts : state.posts;  // Regular or popular posts
+//     let posts = isPopular ? state.popularPosts : state.posts; // Regular or popular posts
 //     if (isTag) {
 //         posts = state.tagPosts; // Use tagPosts if it's a tag-related post
 //     }
 
 //     if (isUserPost) {
 //         posts = state.userPosts; // Use userPosts if it's a user-related post
-//         console.log("User posts:", posts);
 //     }
 
-//     const userId = user._id || user;
-//     const updatedPosts = posts.map(post =>
-//         post._id === postId
-//             ? { ...post, likes: post.likes.filter(like => like !== userId) }
-//             : post
-//     );
+//     const postToUpdate = posts.find(post => post._id === postId);
+
+//     if (!postToUpdate) {
+//         toast.error("Post not found.");
+//         return;
+//     }
+
+//     postToUpdate.likes = postToUpdate.likes || [];
+
+//     // Validate user and userId
+//     if (!user || !user._id) {
+//         console.log("Invalid user object:", user);
+//         toast.error("You need to sign in to like a post.");
+//         return;
+//     }
+//     const userId = user._id;
+
+//     if (postToUpdate.likes.includes(userId)) {
+//         toast.info("Post already liked.");
+//         return;
+//     }
+
+//     // Optimistic update
+//     const updatedPost = {
+//         ...postToUpdate,
+//         likes: [...postToUpdate.likes, userId]
+//     };
 
 //     // Dispatch action based on the post type
 //     if (isPopular) {
-//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for popular posts
 //     } else if (isTag) {
-//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for tag posts
 //     } else if (isUserPost) {
-//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
-//     }
-//      else {
-//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for user posts
+//     } else {
+//         dispatch({ type: LIKE_POST, payload: updatedPost }); // Dispatch for regular posts
 //     }
 
 //     try {
-//         const response = await fetch(`https://imgurif-api.onrender.com/api/unlike/${postId}`, {
+//         const response = await fetch(`https://imgurif-api.onrender.com/api/like/${postId}`, {
 //             method: 'PUT',
 //             headers: { 'Content-Type': 'application/json' },
 //             body: JSON.stringify({ user: userId })
@@ -365,25 +315,20 @@ export const likePost = (postId, user, isPopular = false, isTag = false, isUserP
 
 //         const responseData = await response.json();
 
-//         if (responseData.msg === "User has not liked this post") {
-//             toast.info("You have not liked this post yet.");
-//         } else if (responseData.likes) {
-//             dispatch({ type: UNLIKE_POST, payload: { postId, likes: responseData.likes } });
-//             toast.success("Post has been unliked.");
+//         if (responseData.msg === "Post has been liked") {
+//             dispatch({ type: LIKE_POST, payload: responseData.post });
+//             toast.success("Post has been liked.");
 //         } else {
 //             throw new Error("Unexpected response");
 //         }
 //     } catch (error) {
-//         toast.error(`Error unliking post: ${error.message}`);
-//         // Optionally, you can add a custom error handler here
-//         handleErrorResponse(error);
+//         toast.error(`Error liking post: ${error.message}`);
 //     }
 // };
 
-
 export const unlikePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
     const state = getState();
-    let posts = isPopular ? state.popularPosts : state.posts; // Regular or popular posts
+    let posts = isPopular ? state.popularPosts : state.posts;  // Regular or popular posts
     if (isTag) {
         posts = state.tagPosts; // Use tagPosts if it's a tag-related post
     }
@@ -393,13 +338,7 @@ export const unlikePost = (postId, user, isPopular = false, isTag = false, isUse
         console.log("User posts:", posts);
     }
 
-    // Validate user and userId
-    if (!user || !user._id) {
-        toast.error("You need to sign in to unlike a post.");
-        return;
-    }
-    const userId = user._id;
-
+    const userId = user._id || user;
     const updatedPosts = posts.map(post =>
         post._id === postId
             ? { ...post, likes: post.likes.filter(like => like !== userId) }
@@ -413,7 +352,8 @@ export const unlikePost = (postId, user, isPopular = false, isTag = false, isUse
         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
     } else if (isUserPost) {
         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
-    } else {
+    }
+     else {
         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
     }
 
@@ -440,3 +380,64 @@ export const unlikePost = (postId, user, isPopular = false, isTag = false, isUse
         handleErrorResponse(error);
     }
 };
+
+
+// export const unlikePost = (postId, user, isPopular = false, isTag = false, isUserPost = false) => async (dispatch, getState) => {
+//     const state = getState();
+//     let posts = isPopular ? state.popularPosts : state.posts; // Regular or popular posts
+//     if (isTag) {
+//         posts = state.tagPosts; // Use tagPosts if it's a tag-related post
+//     }
+
+//     if (isUserPost) {
+//         posts = state.userPosts; // Use userPosts if it's a user-related post
+//         console.log("User posts:", posts);
+//     }
+
+//     // Validate user and userId
+//     if (!user || !user._id) {
+//         toast.error("You need to sign in to unlike a post.");
+//         return;
+//     }
+//     const userId = user._id;
+
+//     const updatedPosts = posts.map(post =>
+//         post._id === postId
+//             ? { ...post, likes: post.likes.filter(like => like !== userId) }
+//             : post
+//     );
+
+//     // Dispatch action based on the post type
+//     if (isPopular) {
+//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+//     } else if (isTag) {
+//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+//     } else if (isUserPost) {
+//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+//     } else {
+//         dispatch({ type: UNLIKE_POST, payload: { postId, likes: updatedPosts.find(post => post._id === postId).likes } });
+//     }
+
+//     try {
+//         const response = await fetch(`https://imgurif-api.onrender.com/api/unlike/${postId}`, {
+//             method: 'PUT',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ user: userId })
+//         });
+
+//         const responseData = await response.json();
+
+//         if (responseData.msg === "User has not liked this post") {
+//             toast.info("You have not liked this post yet.");
+//         } else if (responseData.likes) {
+//             dispatch({ type: UNLIKE_POST, payload: { postId, likes: responseData.likes } });
+//             toast.success("Post has been unliked.");
+//         } else {
+//             throw new Error("Unexpected response");
+//         }
+//     } catch (error) {
+//         toast.error(`Error unliking post: ${error.message}`);
+//         // Optionally, you can add a custom error handler here
+//         handleErrorResponse(error);
+//     }
+// };

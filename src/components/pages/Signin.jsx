@@ -12,6 +12,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { handleErrorResponse, notifySuccess } from "../../utils/helpers";
 
 function Signin(){
 
@@ -32,6 +33,7 @@ function Signin(){
       } else {
         setErr(false);
         axios.post("https://imgurif-api.onrender.com/api/login", user)
+        // axios.post("http://localhost:3007/api/login", user)
           .then((resp) => {
             if (resp.data.msg === 'Login successful') {
               localStorage.setItem('Imgur_USER', JSON.stringify(resp.data));
@@ -40,15 +42,16 @@ function Signin(){
               const redirectTo = location.state?.from || '/';
               navigate(redirectTo);
             } else {
-              toast.error("invalid user please signup..");
+              console.error("invalid user please signup..");
             }
           })
           .catch((error) => {
-            console.error("Login error:", error);
+            // console.error("Login error:", error);
+            handleErrorResponse(error)
             if (error.response && error.response.status === 404 && error.response.data.msg === 'Invalid username or password') {
               toast.error("No user with the provided username. Please sign up.");
             } else {
-              toast.error("An unexpected error occurred during login.");
+              console.error("An unexpected error occurred during login.");
             }
           });
           
