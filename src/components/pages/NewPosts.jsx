@@ -175,7 +175,7 @@ function NewPosts() {
                         value={title}
                         onChange={handleInputChange}
                         required
-                        style={{ fontSize: '18px', color: "white" }}
+                        style={{ fontSize: '28px', color: "white" }}
                       />
                     </div>
                     <div
@@ -229,7 +229,6 @@ function NewPosts() {
                         type="submit"
                         className="btn btn-success"
                         style={{ fontSize: '12px' }}
-
                       >
                         To Community
                       </button>
@@ -249,7 +248,7 @@ function NewPosts() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="d-flex align-items-center justify-content-center rounded-circle text-white"
-                          style={{ backgroundColor: '#3b5998', width: 40, height: 40 }}
+                          style={{ backgroundColor: '#3b5998', width: 50, height: 50 }}
                         >
                           <FaFacebookF />
                         </a>
@@ -259,7 +258,7 @@ function NewPosts() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="d-flex align-items-center justify-content-center rounded-circle text-white"
-                          style={{ backgroundColor: '#1DA1F2', width: 40, height: 40 }}
+                          style={{ backgroundColor: '#1DA1F2', width: 50, height: 50 }}
                         >
                           <FaTwitter />
                         </a>
@@ -269,7 +268,7 @@ function NewPosts() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="d-flex align-items-center justify-content-center rounded-circle text-white"
-                          style={{ backgroundColor: '#25D366', width: 40, height: 40 }}
+                          style={{ backgroundColor: '#25D366', width: 50, height: 50 }}
                         >
                           <FaWhatsapp />
                         </a>
@@ -279,7 +278,7 @@ function NewPosts() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="d-flex align-items-center justify-content-center rounded-circle text-white"
-                          style={{ backgroundColor: '#0077B5', width: 40, height: 40 }}
+                          style={{ backgroundColor: '#0077B5', width: 50, height: 50 }}
                         >
                           <FaLinkedinIn />
                         </a>
@@ -288,13 +287,6 @@ function NewPosts() {
                     {/* <p className="pt-3" style={{ color: '#b4b9c2', fontSize: "13px" }}>
                       Your post is currently <span className="text-success">Hidden</span>
                     </p> */}
-
-                    <div className='pb-1' style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <input type="checkbox" id="mature" name="mature" checked={isMature} onChange={() => setIsMature(!isMature)} />
-                      <label htmlFor="mature" style={{ color: '#b4b9c2', fontSize: '13px', margin: 0 }}>
-                        Mature (?)
-                      </label>
-                    </div>
 
                     {/* <div className="form-group text-white">
                       <label htmlFor="selectedTag" className="mb-1">Tags</label>
@@ -332,7 +324,52 @@ function NewPosts() {
                       )}
                     </div> */}
 
-                    
+                    <div className="form-group tag-input text-white mb-4 mt-5">
+                      <label htmlFor="selectedTag" className="form-label text-sm text-gray-700 mb-1">
+                        Tags
+                      </label>
+                      <div className="d-flex gap-3">
+                        <select
+                          id="selectedTag"
+                          name="selectedTag"
+                          value={selectedTag}
+                          onChange={handleInputChange}
+                          className="form-control bg-secondary text-white border border-gray-300 shadow-sm"
+                          style={{ fontSize: '14px', height: '38px' }} // standard Bootstrap height
+                        >
+                          <option value="" disabled>
+                            Select or Create Tag
+                          </option>
+                          {tags.map((tag) => (
+                            <option key={tag._id} value={JSON.stringify(tag)}>
+                              {tag.name}
+                            </option>
+                          ))}
+                          <option value="new">Create New Tag</option>
+                        </select>
+
+                        {selectedTag === 'new' && (
+                          <input
+                            type="text"
+                            id="newTag"
+                            name="newTag"
+                            value={newTag}
+                            onChange={handleInputChange}
+                            placeholder="Enter New Tag Name"
+                            required
+                            className="form-control create-new-tag bg-success text-white border border-gray-300 shadow-sm"
+                            style={{ fontSize: '14px', height: '38px', color: 'white' }} // match the select height
+                          />
+                        )}
+                      </div>
+                    </div>
+
+                    <div className='pb-1' style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '5px' }}>
+                      <input type="checkbox" id="mature" name="mature" checked={isMature} onChange={() => setIsMature(!isMature)} />
+                      <label htmlFor="mature" style={{ color: '#b4b9c2', fontSize: '13px', margin: 0 }}>
+                        Mature (?)
+                      </label>
+                    </div>
                   </div>
                 </div>
                 <ToastContainer />
