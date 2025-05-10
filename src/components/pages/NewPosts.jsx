@@ -334,7 +334,7 @@ function NewPosts() {
                           name="selectedTag"
                           value={selectedTag}
                           onChange={handleInputChange}
-                          className="form-control bg-secondary text-white border border-gray-300 shadow-sm"
+                          className="form-control bg-secondary text-white shadow-sm"
                           style={{ fontSize: '14px', height: '38px' }} // standard Bootstrap height
                         >
                           <option value="" disabled>
@@ -357,7 +357,7 @@ function NewPosts() {
                             onChange={handleInputChange}
                             placeholder="Enter New Tag Name"
                             required
-                            className="form-control create-new-tag bg-success text-white border border-gray-300 shadow-sm"
+                            className="form-control create-new-tag bg-success text-white  shadow-sm"
                             style={{ fontSize: '14px', height: '38px', color: 'white' }} // match the select height
                           />
                         )}
